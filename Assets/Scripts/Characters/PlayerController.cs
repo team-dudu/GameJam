@@ -9,6 +9,8 @@ namespace GameJam
         public State state = State.Alive;
         public IAttack attack;
 
+        public LayerMask groundLayer;
+        
         Rigidbody2D rigidBody;
         AudioSource audioSource;
 

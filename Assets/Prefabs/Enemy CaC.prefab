@@ -106,7 +106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7380937675426685245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a03a9462422ba048a5df8b6fe39c827, type: 3}
+  m_Script: {fileID: 11500000, guid: 2498d392195f7cb4e94a45de2c2f2fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
@@ -116,7 +116,7 @@ MonoBehaviour:
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 1024
-  attackRange: 20
+  attackRange: 1
 --- !u!114 &-8915157900034063915
 MonoBehaviour:
   m_ObjectHideFlags: 0
