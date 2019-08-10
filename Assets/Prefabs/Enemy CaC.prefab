@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4514294592424867029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.235, y: 0, z: 0}
+  m_LocalPosition: {x: 0.264, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1291926330047815981}
@@ -70,12 +70,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1291926330047815981}
   - component: {fileID: 7988891115567135179}
-  - component: {fileID: 2794296759571661999}
+  - component: {fileID: -8915157900034063915}
   - component: {fileID: 8895996372234640347}
   - component: {fileID: 6126482809668346285}
   - component: {fileID: 3753118361514962777}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: Enemy CaC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,15 +109,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a03a9462422ba048a5df8b6fe39c827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
   speed: 1
   castDistance: 2
-  health: 5
   groundDetection: {fileID: 6144081349502821945}
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 1024
   attackRange: 20
---- !u!114 &2794296759571661999
+--- !u!114 &-8915157900034063915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,13 +126,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7380937675426685245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbfa15149004f01bed12af8f28a31ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b69abddd0ddd844d9125e8e08c44649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 3987390046643714303}
-  bulletPrefab: {fileID: 2131016180268511039, guid: e06ebc3a818147d4d93d22250a25a055,
-    type: 3}
   startTimeBtwAttack: 0.5
+  attackPos: {fileID: 3987390046643714303}
+  whatIsEnemies:
+    serializedVersion: 2
+    m_Bits: 1024
+  attackRange: 0.1
+  damage: 1
 --- !u!212 &8895996372234640347
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -172,7 +175,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0cf81234c87ee8e4d8be72ade3f12a23, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.8726311, a: 1}
+  m_Color: {r: 0.5602889, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameJam
 {
@@ -12,17 +9,22 @@ namespace GameJam
         public Rigidbody2D rb;
         public LayerMask whatIsTarget;
 
+        public Vector3 direction = Vector3.right;
+
         void Start()
         {
-            rb.velocity = transform.right * speed;
+            rb.velocity = direction * speed;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null)
+            var layerValue = 1 << other.gameObject.layer;
+            var maskValue = whatIsTarget.value;
+
+            if ((layerValue & maskValue) == layerValue)
             {
-                enemy.TakeDamage(damage);
+                var o = other.GetComponent<IDamageable>();
+                o?.TakeDamage(damage);
             }
 
             Destroy(gameObject);

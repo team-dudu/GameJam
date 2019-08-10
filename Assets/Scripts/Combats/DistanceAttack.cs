@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameJam
 {
@@ -8,9 +7,26 @@ namespace GameJam
         public Transform firePoint;
         public GameObject bulletPrefab;
 
-        public void Shoot()
+        private float _timeBtwAttack;
+        public float startTimeBtwAttack;
+
+        void Update()
         {
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            _timeBtwAttack -= Time.deltaTime;
+        }
+
+        public void Shoot(Vector3 direction)
+        {
+            if (_timeBtwAttack <= 0)
+            {
+                direction = direction.normalized;
+                direction.y = 0;
+                direction.z = 0;
+                var bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                bullet.GetComponent<Bullet>().direction = direction;
+
+                _timeBtwAttack = startTimeBtwAttack;
+            }
         }
     }
 }

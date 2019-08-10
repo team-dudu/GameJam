@@ -1,7 +1,9 @@
-﻿namespace GameJam
+﻿using UnityEngine;
+
+namespace GameJam
 {
     public interface IAttack
     {
-        void Shoot();
+        void Shoot(Vector3 direction);
     }
 }

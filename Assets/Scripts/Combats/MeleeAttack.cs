@@ -1,6 +1,4 @@
-﻿using System;
-using GameJam;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameJam
 {
@@ -19,14 +17,14 @@ namespace GameJam
             _timeBtwAttack -= Time.deltaTime;
         }
 
-        public void Shoot()
+        public void Shoot(Vector3 direction)
         {
             if (_timeBtwAttack <= 0)
             {
                 var enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
                 foreach (var t in enemiesToDamage)
                 {
-                    t.GetComponent<Enemy>().TakeDamage(damage);
+                    t.GetComponent<IDamageable>().TakeDamage(damage);
                 }
 
                 _timeBtwAttack = startTimeBtwAttack;

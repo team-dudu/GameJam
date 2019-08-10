@@ -1,15 +1,14 @@
-using System;
 using UnityEngine;
 
 namespace GameJam
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Character
     {
         public float moveSpeed = 10f;
         public float jumpForce = 20f;
         public State state = State.Alive;
         public IAttack attack;
-        
+
         Rigidbody2D rigidBody;
         AudioSource audioSource;
 
@@ -66,7 +65,7 @@ namespace GameJam
 
             if (Input.GetButtonDown("Fire1"))
             {
-                attack?.Shoot();
+                attack?.Shoot(transform.right);
             }
         }
 
