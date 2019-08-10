@@ -3143,9 +3143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbb318d3d4a0be469e3bd491f0439ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpForce: 40
-  state: 0
 --- !u!60 &1945518555
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3243,6 +3240,7 @@ MonoBehaviour:
   firePoint: {fileID: 602255859}
   bulletPrefab: {fileID: 2131016180268511039, guid: 57ce61fb8c4a773429784af17e41e79c,
     type: 3}
+  startTimeBtwAttack: 0
 --- !u!114 &1945518557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3256,4 +3254,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    Name: testeur
+    Name: 
