@@ -1,28 +1,47 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace GameJam
 {
-    public float speed = 20f;
-    public int damage = 1;
-    public Rigidbody2D rb;
-    public LayerMask whatIsTarget;
-
-    void Start()
+    public class Bullet : MonoBehaviour
     {
-        rb.velocity = transform.right * speed;
-    }
+        public float speed = 20f;
+        public int damage = 1;
+        public Rigidbody2D rb;
+        public LayerMask whatIsTarget;
+        public float distanceLimit = 0.1f;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
+        private Vector2 startPosition;
+
+        public Vector2 direction = Vector2.right;
+
+        void Start()
         {
-            enemy.TakeDamage(damage);
+            rb.velocity = direction * speed;
+            startPosition = transform.position;
         }
 
-        Destroy(gameObject);
+        private void Update()
+        {
+            float bulletDistance = Vector2.Distance(startPosition, transform.position);
+
+            if (bulletDistance > distanceLimit)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            var layerValue = 1 << other.gameObject.layer;
+            var maskValue = whatIsTarget.value;
+
+            if ((layerValue & maskValue) == layerValue)
+            {
+                var o = other.GetComponent<IDamageable>();
+                o?.TakeDamage(damage);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }
