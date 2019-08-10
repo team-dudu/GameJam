@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidBody;
     AudioSource audioSource;
     SpriteRenderer spriteRenderer;
+    Animator animator;
 
     enum State { Alive, Dying};
 
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,11 +48,17 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
+            animator.SetBool("isMoving", true);
             MoveRight();
         }
-        if (Input.GetKey(KeyCode.Q))
+        else if (Input.GetKey(KeyCode.Q))
         {
+            animator.SetBool("isMoving", true);
             MoveLeft();
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
         }
         if(Input.GetKey(KeyCode.Space))
         {
