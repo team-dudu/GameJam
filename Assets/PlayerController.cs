@@ -3,34 +3,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] float rcsThrust = 100f;
     [SerializeField] float moveSpeed= 10f;
-    [SerializeField] float jumpForce= 20f;
+    [SerializeField] float jumpForce= 500f;
     [SerializeField] State state = State.Alive;
-
-    public LayerMask groundLayer;
 
     Rigidbody2D rigidBody;
     AudioSource audioSource;
 
-    enum State { Alive, Dying};
+    enum State { Alive, Dying, Jumping };
 
-    bool IsGrounded()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float distance = 3.5f;
-
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-
-        Debug.DrawRay(position, direction, Color.green);
-
-        if (hit.collider != null)
-        {
-            return true;
-        }
-
-        return false;
-    }
+    //champ calculé "IsGrounded"
 
     // Start is called before the first frame update
     void Start()
@@ -56,44 +39,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        switch (collision.gameObject.tag)
-        {
-            case "Friendly":
-                print("ok");
-                break;
-            case "End":
-                StartLevelTransition();
-                break;
-        }
-    }
-
-    private void StartLevelTransition()
-    {
-        print("Next Level");
-       // throw new NotImplementedException();
-    }
-
     private void Jump()
     {
-       if(!IsGrounded())
+        //Detecter collision avec un bloc de terrain horizontal
+       if(state == State.Alive)
        {
-            return;
+            state = State.Jumping;
+            rigidBody.AddRelativeForce(Vector3.up * jumpForce);
        }
-       else
-       {
-            rigidBody.AddRelativeForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
-       }
+        
     }
 
     private void MoveLeft()
     {
-        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
     }
 
     private void MoveRight()
     {
-        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
     }
 }
