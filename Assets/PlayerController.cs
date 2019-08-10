@@ -56,6 +56,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("ok");
+                break;
+            case "End":
+                StartLevelTransition();
+                break;
+        }
+    }
+
+    private void StartLevelTransition()
+    {
+        print("Next Level");
+       // throw new NotImplementedException();
+    }
+
     private void Jump()
     {
        if(!IsGrounded())
