@@ -14,7 +14,7 @@ public class DialogManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.E))
+        if(Input.GetButtonDown("Submit"))
         {
             DisplayNextSentence();
         }
@@ -29,7 +29,6 @@ public class DialogManager : MonoBehaviour
         }
 
         nameText.text = dialog.Name;
-        //Debug.Log("Starting conversation with " + dialog.Name);
 
         sentences.Clear();
 
@@ -41,7 +40,6 @@ public class DialogManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    //TODO add déclenchement étape suivante sur la touche e
     private void DisplayNextSentence()
     {
         if (sentences.Count == 0)
@@ -53,12 +51,10 @@ public class DialogManager : MonoBehaviour
         string sentence = sentences.Dequeue();
 
         dialogueText.text = sentence;
-        //Debug.Log(sentence);
     }
 
     private void EndDialogue()
     {
         canvas.gameObject.SetActive(false);
-        Debug.Log("End of dialog");
     }
 }
