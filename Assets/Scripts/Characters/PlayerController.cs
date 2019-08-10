@@ -19,6 +19,7 @@ namespace GameJam
 
         Rigidbody2D rigidBody;
         AudioSource audioSource;
+        Animator animator;
 
         private float moveInput;
 
@@ -180,6 +181,24 @@ namespace GameJam
                 {
                     crouch = true;
                 }
+            }
+
+            if(m_Grounded && Math.Abs(move) > 0.01)
+            {
+                animator.SetBool("isMoving", true);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
+            }
+
+            if(m_Grounded)
+            {
+                animator.SetBool("isJumping", false);
+            }
+            else
+            {
+                animator.SetBool("isJumping", true);
             }
 
             if (m_Grounded && Math.Abs(move) > 0.01)
