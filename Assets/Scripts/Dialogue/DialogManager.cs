@@ -28,6 +28,7 @@ public class DialogManager : MonoBehaviour
             sentences = new Queue<string>();
         }
 
+        Time.timeScale = 0;
         nameText.text = dialog.Name;
 
         sentences.Clear();
@@ -56,5 +57,6 @@ public class DialogManager : MonoBehaviour
     private void EndDialogue()
     {
         canvas.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }
