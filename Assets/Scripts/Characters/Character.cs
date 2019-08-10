@@ -32,6 +32,11 @@ namespace GameJam
             animator = GetComponent<Animator>();
         }
 
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
+
 		public void TakeDamage(int damage)
 		{
 			if (health <= 0)
