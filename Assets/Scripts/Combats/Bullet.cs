@@ -8,7 +8,7 @@ namespace GameJam
         public int damage = 1;
         public Rigidbody2D rb;
         public LayerMask whatIsTarget;
-        public float distanceLimit = 0.1f;
+        public float distanceLimit = 10f;
 
         private Vector2 startPosition;
 
