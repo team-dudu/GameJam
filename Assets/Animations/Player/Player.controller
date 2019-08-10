@@ -459,6 +459,12 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: TriggerFire
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsMoving
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDash
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9102183229641027649}
   m_Solo: 0

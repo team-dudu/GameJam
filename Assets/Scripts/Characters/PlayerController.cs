@@ -183,22 +183,22 @@ namespace GameJam
                 }
             }
 
-            if(m_Grounded && Math.Abs(move) > 0.01)
-            {
-                animator.SetBool("isMoving", true);
+            if (m_Grounded && Math.Abs(move) > 0.01)
+            {                
+                animator.SetBool("IsMoving", true);                
             }
             else
             {
-                animator.SetBool("isMoving", false);
+                animator.SetBool("IsMoving", false);
             }
 
             if(m_Grounded)
             {
-                animator.SetBool("isJumping", false);
+                animator.SetBool("IsJumping", false);
             }
             else
             {
-                animator.SetBool("isJumping", true);
+                animator.SetBool("IsJumping", true);
             }
 
             if (m_Grounded && Math.Abs(move) > 0.01)
