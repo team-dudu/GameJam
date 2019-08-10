@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Friendly
   - End
+  - Weapon
   layers:
   - Default
   - TransparentFX

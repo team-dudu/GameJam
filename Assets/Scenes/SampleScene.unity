@@ -1709,11 +1709,15 @@ MonoBehaviour:
   ShouldDisappear: 1
   moveSpeed: 20
   state: 0
+  weaponPrefab: {fileID: 4126955700540653438, guid: ff6b11e8ae15bb941bcb372838e405a1,
+    type: 3}
+  weaponPrefab2: {fileID: 2505149858744455044, guid: 5ddc98bd6a2b8b14588571e3504f7b75,
+    type: 3}
   m_JumpForce: 3200
   m_DashForce: 25
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
-  m_AirControl: 1
+  m_AirControl: 0
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 512

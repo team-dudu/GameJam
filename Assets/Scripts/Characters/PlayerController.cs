@@ -8,7 +8,12 @@ namespace GameJam
     {
         public float moveSpeed = 10f;
         public State state = State.Alive;
-        public IAttack attack;
+
+        public GameObject[] weaponPrefabs;
+        private GameObject weapon;
+        private int currentWeapon = 0;
+
+        Animator animator;
         public Inventory inventory;
 
         Rigidbody2D rigidBody;
@@ -16,21 +21,30 @@ namespace GameJam
 
         private float moveInput;
 
-        [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+        [SerializeField] private float m_JumpForce = 400f; // Amount of force added when the player jumps.
+
         [SerializeField] private float m_DashForce = 25f;
-        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
-        [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
-        [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
-        [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-        [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
-        [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
-        [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
+
+        [Range(0, 1)] [SerializeField]
+        private float m_CrouchSpeed = .36f; // Amount of maxSpeed applied to crouching movement. 1 = 100%
+
+        [Range(0, .3f)] [SerializeField]
+        private float m_MovementSmoothing = .05f; // How much to smooth out the movement
+
+        [SerializeField] private bool m_AirControl = false; // Whether or not a player can steer while jumping;
+        [SerializeField] private LayerMask m_WhatIsGround; // A mask determining what is ground to the character
+
+        [SerializeField]
+        private Transform m_GroundCheck; // A position marking where to check if the player is grounded.
+
+        [SerializeField] private Transform m_CeilingCheck; // A position marking where to check for ceilings
+        [SerializeField] private Collider2D m_CrouchDisableCollider; // A collider that will be disabled when crouching
 
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-        private bool m_Grounded;            // Whether or not the player is grounded.
+        private bool m_Grounded; // Whether or not the player is grounded.
         const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
         private Rigidbody2D m_Rigidbody2D;
-        private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        private bool m_FacingRight = true; // For determining which way the player is currently facing.
         private Vector3 m_Velocity = Vector3.zero;
 
         public enum State
@@ -46,7 +60,9 @@ namespace GameJam
 
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
-            attack = GetComponent<IAttack>();
+            animator = GetComponent<Animator>();
+            if (weaponPrefabs.Length > 0)
+                weapon = Instantiate(weaponPrefabs[currentWeapon], transform);
         }
 
         // Update is called once per frame
@@ -55,13 +71,25 @@ namespace GameJam
             Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
             if (Input.GetButtonDown("Dash"))
             {
-                _animator.SetTrigger("TriggerDash");
+                animator.SetTrigger("TriggerDash");
                 Move(m_FacingRight ? m_DashForce : -m_DashForce, false, false);
             }
-            if (Input.GetButton("Fire1") && _animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" && !Input.GetButton("Dash"))
+
+            if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" &&
+                !Input.GetButton("Dash"))
             {
-                _animator.SetTrigger("TriggerFire");
-                attack?.Shoot(transform.right);
+                animator.SetTrigger("TriggerFire");
+                weapon.GetComponent<IAttack>()?.Shoot(transform.right);
+            }
+
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                Destroy(weapon);
+                currentWeapon++;
+                if (currentWeapon >= weaponPrefabs.Length)
+                    currentWeapon = 0;
+                GameObject prefab = weaponPrefabs[currentWeapon];
+                weapon = Instantiate(prefab, transform);
             }
         }
 
@@ -84,6 +112,7 @@ namespace GameJam
             {
                 inventory = new Inventory();
             }
+
             inventory.Weapons.Add(weapon);
         }
 
@@ -98,13 +127,12 @@ namespace GameJam
             // throw new NotImplementedException();
         }
 
-        [Header("Events")]
-        [Space]
-
-        public UnityEvent OnLandEvent;
+        [Header("Events")] [Space] public UnityEvent OnLandEvent;
 
         [System.Serializable]
-        public class BoolEvent : UnityEvent<bool> { }
+        public class BoolEvent : UnityEvent<bool>
+        {
+        }
 
         public BoolEvent OnCrouchEvent;
         private bool m_wasCrouching = false;
@@ -127,7 +155,8 @@ namespace GameJam
 
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
             // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+            Collider2D[] colliders =
+                Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
@@ -169,11 +198,9 @@ namespace GameJam
                 _animator.SetBool("IsJumping", true);
             }
 
-
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
             {
-
                 // If crouching
                 if (crouch)
                 {
@@ -206,7 +233,8 @@ namespace GameJam
                 // Move the character by finding the target velocity
                 Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
                 // And then smoothing it out and applying it to the character
-                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity,
+                    m_MovementSmoothing);
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight)
@@ -221,6 +249,7 @@ namespace GameJam
                     Flip();
                 }
             }
+
             // If the player should jump...
             if (m_Grounded && jump)
             {
