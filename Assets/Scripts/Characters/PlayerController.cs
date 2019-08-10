@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,7 @@ namespace GameJam
         
         Rigidbody2D rigidBody;
         AudioSource audioSource;
+        Animator animator;
 
         private float moveInput;
         private bool facingRight = true;
@@ -42,6 +44,7 @@ namespace GameJam
         {
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
+            animator = GetComponent<Animator>();
             attack = GetComponent<IAttack>();
         }
 
@@ -52,6 +55,7 @@ namespace GameJam
 
             if (Input.GetButtonDown("Fire1"))
             {
+                animator.SetTrigger("triggerFire");
                 attack?.Shoot(transform.right);
             }
         }
@@ -127,6 +131,24 @@ namespace GameJam
                 {
                     crouch = true;
                 }
+            }
+
+            if(m_Grounded && Math.Abs(move) > 0.01)
+            {
+                animator.SetBool("isMoving", true);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
+            }
+
+            if(m_Grounded)
+            {
+                animator.SetBool("isJumping", false);
+            }
+            else
+            {
+                animator.SetBool("isJumping", true);
             }
 
             //only control the player if grounded or airControl is turned on
