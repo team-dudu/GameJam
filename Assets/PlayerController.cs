@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed= 10f;
-    [SerializeField] float jumpForce= 500f;
+    [SerializeField] float jumpForce= 20f;
     [SerializeField] State state = State.Alive;
 
     public LayerMask groundLayer;
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
-        float distance = 1.0f;
+        float distance = 3.5f;
 
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
 
@@ -64,9 +64,8 @@ public class PlayerController : MonoBehaviour
        }
        else
        {
-            rigidBody.AddRelativeForce(Vector3.up * jumpForce);
+            rigidBody.AddRelativeForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
        }
-        
     }
 
     private void MoveLeft()
