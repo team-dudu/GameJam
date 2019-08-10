@@ -142,10 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b52a520a84ecd4b8763ee472082edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 75
   damage: 1
   rb: {fileID: 3532110220365235350}
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 256
-  direction: {x: 1, y: 0, z: 0}
+  distanceLimit: 15
+  direction: {x: 1, y: 0}

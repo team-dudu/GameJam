@@ -8,12 +8,26 @@ namespace GameJam
         public int damage = 1;
         public Rigidbody2D rb;
         public LayerMask whatIsTarget;
+        public float distanceLimit = 0.1f;
 
-        public Vector3 direction = Vector3.right;
+        private Vector2 startPosition;
+
+        public Vector2 direction = Vector2.right;
 
         void Start()
         {
             rb.velocity = direction * speed;
+            startPosition = transform.position;
+        }
+
+        private void Update()
+        {
+            float bulletDistance = Vector2.Distance(startPosition, transform.position);
+
+            if (bulletDistance > distanceLimit)
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
