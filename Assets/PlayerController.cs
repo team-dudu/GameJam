@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField] float moveSpeed= 10f;
     [SerializeField] float jumpForce= 500f;
     [SerializeField] State state = State.Alive;
