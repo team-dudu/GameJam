@@ -3,63 +3,59 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public float jumpForce;
+    [SerializeField] float moveSpeed= 10f;
+    [SerializeField] float jumpForce= 500f;
+    [SerializeField] State state = State.Alive;
 
-    private float _moveInput;
+    Rigidbody2D rigidBody;
+    AudioSource audioSource;
 
-    private bool _facingRight = true;
+    enum State { Alive, Dying, Jumping };
 
-    private bool _isGrounded;
-    public Transform groundCheck;
-    public float checkRadius;
-    public LayerMask whatIsGround;
+    //champ calculé "IsGrounded"
 
-    private int _extraJumps;
-    public int extraJumpsValue;
-
-    private Rigidbody2D _rb;
-
+    // Start is called before the first frame update
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _extraJumps = extraJumpsValue;
+        rigidBody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    void FixedUpdate()
-    {
-        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-
-        _moveInput = Input.GetAxis("Horizontal");
-        _rb.velocity = new Vector2(_moveInput * speed, _rb.velocity.y);
-
-        if (!_facingRight && _moveInput > 0 || _facingRight && _moveInput < 0)
-        {
-            Flip();
-        }
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (_isGrounded)
+        if (Input.GetKey(KeyCode.D))
         {
-            _extraJumps = extraJumpsValue;
+            MoveRight();
         }
-
-        if (Input.GetKeyDown(KeyCode.Z) && _extraJumps > 0)
+        if (Input.GetKey(KeyCode.Q))
         {
-            _rb.velocity = Vector2.up * jumpForce;
-            _extraJumps--;
+            MoveLeft();
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && _extraJumps == 0 && _isGrounded)
+        if(Input.GetKey(KeyCode.Z))
         {
-            _rb.velocity = Vector2.up * jumpForce;
+            Jump();
         }
     }
 
-    void Flip()
+    private void Jump()
     {
-        _facingRight = !_facingRight;
-        transform.Rotate(0, 180, 0);
+        //Detecter collision avec un bloc de terrain horizontal
+       if(state == State.Alive)
+       {
+            state = State.Jumping;
+            rigidBody.AddRelativeForce(Vector3.up * jumpForce);
+       }
+        
+    }
+
+    private void MoveLeft()
+    {
+        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+    }
+
+    private void MoveRight()
+    {
+        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
     }
 }
