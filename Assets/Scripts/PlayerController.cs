@@ -5,20 +5,18 @@ namespace GameJam
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] float moveSpeed = 10f;
-        [SerializeField] float jumpForce = 20f;
-        [SerializeField] State state = State.Alive;
-
-        public LayerMask groundLayer;
-
+        public float moveSpeed = 10f;
+        public float jumpForce = 20f;
+        public State state = State.Alive;
+        public IAttack attack;
+        
         Rigidbody2D rigidBody;
         AudioSource audioSource;
 
         private float moveInput;
         private bool facingRight = true;
-        public IAttack attack;
 
-        enum State
+        public enum State
         {
             Alive,
             Dying
@@ -47,6 +45,7 @@ namespace GameJam
         {
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
+            attack = GetComponent<IAttack>();
         }
 
         // Update is called once per frame
@@ -67,7 +66,7 @@ namespace GameJam
 
             if (Input.GetButtonDown("Fire1"))
             {
-                attack.Shoot();
+                attack?.Shoot();
             }
         }
 
