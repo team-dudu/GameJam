@@ -1,99 +1,111 @@
-﻿using System;
+using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace GameJam
 {
-    [SerializeField] float moveSpeed= 10f;
-    [SerializeField] float jumpForce= 20f;
-    [SerializeField] State state = State.Alive;
-
-    public LayerMask groundLayer;
-
-    Rigidbody2D rigidBody;
-    AudioSource audioSource;
-
-    enum State { Alive, Dying};
-
-    bool IsGrounded()
+    public class PlayerController : MonoBehaviour
     {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float distance = 3.5f;
+        [SerializeField] float moveSpeed = 10f;
+        [SerializeField] float jumpForce = 20f;
+        [SerializeField] State state = State.Alive;
 
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+        public LayerMask groundLayer;
 
-        Debug.DrawRay(position, direction, Color.green);
+        Rigidbody2D rigidBody;
+        AudioSource audioSource;
 
-        if (hit.collider != null)
+        private float moveInput;
+        private bool facingRight = true;
+        public IAttack attack;
+
+        enum State
         {
-            return true;
+            Alive,
+            Dying
+        };
+
+        bool IsGrounded()
+        {
+            Vector2 position = transform.position;
+            Vector2 direction = Vector2.down;
+            float distance = 3.5f;
+
+            RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+
+            Debug.DrawRay(position, direction, Color.green);
+
+            if (hit.collider != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        return false;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidBody = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.D))
+        // Start is called before the first frame update
+        void Start()
         {
-            MoveRight();
+            rigidBody = GetComponent<Rigidbody2D>();
+            audioSource = GetComponent<AudioSource>();
         }
-        if (Input.GetKey(KeyCode.Q))
+
+        // Update is called once per frame
+        void Update()
         {
-            MoveLeft();
+            moveInput = Input.GetAxis("Horizontal");
+            rigidBody.velocity = new Vector2(moveInput * moveSpeed, rigidBody.velocity.y);
+
+            if (!facingRight && moveInput > 0 || facingRight && moveInput < 0)
+            {
+                Flip();
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Jump();
+            }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                attack.Shoot();
+            }
         }
-        if(Input.GetKey(KeyCode.Space))
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            Jump();
+            switch (collision.gameObject.tag)
+            {
+                case "Friendly":
+                    print("ok");
+                    break;
+                case "End":
+                    StartLevelTransition();
+                    break;
+            }
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        switch (collision.gameObject.tag)
+        private void StartLevelTransition()
         {
-            case "Friendly":
-                print("ok");
-                break;
-            case "End":
-                StartLevelTransition();
-                break;
+            print("Next Level");
+            // throw new NotImplementedException();
         }
-    }
 
-    private void StartLevelTransition()
-    {
-        print("Next Level");
-       // throw new NotImplementedException();
-    }
+        private void Jump()
+        {
+            if (!IsGrounded())
+            {
+                return;
+            }
+            else
+            {
+                rigidBody.AddRelativeForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            }
+        }
 
-    private void Jump()
-    {
-       if(!IsGrounded())
-       {
-            return;
-       }
-       else
-       {
-            rigidBody.AddRelativeForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
-       }
-    }
-
-    private void MoveLeft()
-    {
-        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-    }
-
-    private void MoveRight()
-    {
-        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        void Flip()
+        {
+            facingRight = !facingRight;
+            transform.Rotate(0, 180, 0);
+        }
     }
 }

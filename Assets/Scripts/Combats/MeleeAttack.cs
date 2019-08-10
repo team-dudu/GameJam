@@ -1,40 +1,42 @@
 ﻿using System;
+using GameJam;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+namespace GameJam
 {
-    private float _timeBtwAttack;
-    public float startTimeBtwAttack;
-
-    public Transform attackPos;
-    public LayerMask whatIsEnemies;
-    public float attackRange;
-    public int damage;
-
-    void Update()
+    public class MeleeAttack : MonoBehaviour, IAttack
     {
-        if (_timeBtwAttack <= 0)
+        private float _timeBtwAttack;
+        public float startTimeBtwAttack;
+
+        public Transform attackPos;
+        public LayerMask whatIsEnemies;
+        public float attackRange;
+        public int damage;
+
+        void Update()
         {
-            if (Input.GetButtonDown("Fire1"))
+            _timeBtwAttack -= Time.deltaTime;
+        }
+
+        public void Shoot()
+        {
+            if (_timeBtwAttack <= 0)
             {
                 var enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
                 foreach (var t in enemiesToDamage)
                 {
                     t.GetComponent<Enemy>().TakeDamage(damage);
                 }
+
+                _timeBtwAttack = startTimeBtwAttack;
             }
-
-            _timeBtwAttack = startTimeBtwAttack;
         }
-        else
+
+        void OnDrawGizmosSelected()
         {
-            _timeBtwAttack -= Time.deltaTime;
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackPos.position, attackRange);
         }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 }

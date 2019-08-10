@@ -3,26 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace GameJam
 {
-    public float speed = 20f;
-    public int damage = 1;
-    public Rigidbody2D rb;
-    public LayerMask whatIsTarget;
-
-    void Start()
+    public class Bullet : MonoBehaviour
     {
-        rb.velocity = transform.right * speed;
-    }
+        public float speed = 20f;
+        public int damage = 1;
+        public Rigidbody2D rb;
+        public LayerMask whatIsTarget;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
+        void Start()
         {
-            enemy.TakeDamage(damage);
+            rb.velocity = transform.right * speed;
         }
 
-        Destroy(gameObject);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }

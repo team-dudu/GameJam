@@ -1,21 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
-public class DistanceAttack : MonoBehaviour
+namespace GameJam
 {
-    public Transform firePoint;
-    public GameObject bulletPrefab;
-    
-    private void Update()
+    public class DistanceAttack : MonoBehaviour, IAttack
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
-    }
+        public Transform firePoint;
+        public GameObject bulletPrefab;
 
-    void Shoot()
-    {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        public void Shoot()
+        {
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
     }
 }
