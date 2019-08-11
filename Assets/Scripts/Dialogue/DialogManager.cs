@@ -29,8 +29,7 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
     }
     public Queue<string> sentences;
 
-    public Text nameText;
-    public Text dialogueText;
+    
 
     void Update()
     {
