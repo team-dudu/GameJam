@@ -129,6 +129,7 @@ MonoBehaviour:
   health: 100
   IsMoving: 0
   IsAttacking: 0
+  ShouldDisappear: 1
   Speed: 1
   CastDistance: 2
   GroundDetection: {fileID: 776914043805487303}
