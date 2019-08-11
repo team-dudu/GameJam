@@ -21,6 +21,8 @@ public class Crate : MonoBehaviour
 
     private PlayerController playerController;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -58,6 +60,8 @@ public class Crate : MonoBehaviour
     {
         if (playerController != null && openable == true)
         {
+            //audioSource.PlayOneShot(audioSource.clip);
+
             animator.SetAnimation(AnimationParameter.Open);
 
             playerController.AddWeaponToInventory(objectsRessourceData.Weapons[0]);
