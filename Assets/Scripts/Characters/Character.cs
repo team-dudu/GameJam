@@ -1,5 +1,4 @@
-﻿using UnityEditor.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameJam
 {
@@ -39,7 +38,7 @@ namespace GameJam
 			}
 			else
 			{
-				_animator.SetTrigger("TriggerDamaged");
+				_animator.SetAnimation(AnimationParameter.Damaged);
 			}
 		}
 
