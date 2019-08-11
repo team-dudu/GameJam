@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GameJam
 {
@@ -14,19 +15,20 @@ namespace GameJam
 		public LayerMask WhatIsEnemies;
         public float AttackRange;
         public IAttack Attack;
-		public MovingDirection CurrentDirection;
-		private float colliderBoundsMargin = 0.5f;
+		public MovingDirection CurrentDirection = MovingDirection.Left;
+		private float colliderBoundsMargin = 0.05f;
 
-		void Start()
+		new void Start()
         {
+			base.Start();
+
             Attack = GetComponent<IAttack>();
 			_objectCollider = GetComponent<Collider2D>();
 		}
 
-        void Update()
+		new void Update()
         {
-            transform.Translate(Time.deltaTime * Speed * Vector2.right);
-
+			base.Update();
 			if (_platformCollider == null)
 			{
 				var groundInfo = Physics2D.Raycast(GroundDetection.position, Vector2.down, CastDistance);
@@ -35,6 +37,8 @@ namespace GameJam
 					_platformCollider = groundInfo.collider;
 					MoveEnemy();
 				}
+
+				return;
 			}
 			else
 			{
@@ -57,6 +61,7 @@ namespace GameJam
 
 		public void MoveEnemy()
 		{
+			const int roundedDecimal = 2;
 			var xDir = 0f;
 
 			// Wait for the enemy to touch the ground before moving
@@ -65,46 +70,38 @@ namespace GameJam
 				return;
 			}
 
-			var leftPlatformLimit = _platformCollider.bounds.min.x;
-			var rightPlatformLimit = _platformCollider.bounds.max.x;
+			var leftPlatformLimit = (float)Math.Round(_platformCollider.bounds.min.x, roundedDecimal);
+			var rightPlatformLimit = (float)Math.Round(_platformCollider.bounds.max.x, roundedDecimal);
 			var isSwitchingDirection = false;
 
 			switch (CurrentDirection)
 			{
 				case MovingDirection.Left:
-					var enemyLeftLimit = _objectCollider.bounds.min.x;
-					if (enemyLeftLimit > leftPlatformLimit + colliderBoundsMargin)
+					var enemyLeftLimit = (float)Math.Round(_objectCollider.bounds.min.x, roundedDecimal);
+					if (enemyLeftLimit > leftPlatformLimit)
 					{
-						// Avoid the game object to exit the collider
-						xDir = enemyLeftLimit + 1f < leftPlatformLimit
-								? leftPlatformLimit - enemyLeftLimit
-								: 1f;
-
-						IsMoving = true;
+						xDir = -1f;
+						_animator.SetAnimation(AnimationParameter.IsMoving, true);
 					}
 					else
 					{
 						CurrentDirection = MovingDirection.Right;
 						isSwitchingDirection = true;
-						IsMoving = false;
+						_animator.SetAnimation(AnimationParameter.IsMoving, false);
 					}
 					break;
 				case MovingDirection.Right:
-					var enemyRightLimit = _objectCollider.bounds.max.x;
-					if (enemyRightLimit < rightPlatformLimit - colliderBoundsMargin)
+					var enemyRightLimit = (float)Math.Round(_objectCollider.bounds.max.x, roundedDecimal);
+					if (enemyRightLimit < rightPlatformLimit)
 					{
-						// Avoid the game object to exit the collider
-						xDir = enemyRightLimit + 1f > rightPlatformLimit
-								? rightPlatformLimit - enemyRightLimit
-								: 1f;
-
-						IsMoving = true;
+						xDir = -1f;
+						_animator.SetAnimation(AnimationParameter.IsMoving, true);
 					}
 					else
 					{
 						CurrentDirection = MovingDirection.Left;
 						isSwitchingDirection = true;
-						IsMoving = false;
+						_animator.SetAnimation(AnimationParameter.IsMoving, false);
 					}
 					break;
 			}
