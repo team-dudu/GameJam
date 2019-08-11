@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameJam
 {
-    public class Enemy : Character
+    public class Enemy_ : Character
     {
         private bool _movingRight = true;
 		private Collider2D _platformCollider;
