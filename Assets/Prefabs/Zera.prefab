@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1253542326710768950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6423348368848635798}
+  m_Layer: 8
+  m_Name: Ceil Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6423348368848635798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253542326710768950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3763312118140627437}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2114915255139985438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4572924657240970813}
+  m_Layer: 8
+  m_Name: Wall Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4572924657240970813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114915255139985438}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3763312118140627437}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6286961465475581001
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +73,7 @@ GameObject:
   - component: {fileID: 2428053523298068568}
   - component: {fileID: 5923798833321542500}
   - component: {fileID: 1266649095909010037}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,11 +87,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6286961465475581001}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 751.92, y: 269.69, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3020021622907956054}
+  - {fileID: 6423348368848635798}
+  - {fileID: 4572924657240970813}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,17 +159,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 200
-  IsMoving: 0
-  IsAttacking: 0
   ShouldDisappear: 1
-  Speed: 1
-  CastDistance: 2
-  GroundDetection: {fileID: 3020021622907956054}
+  m_JumpForce: 800
+  m_DashForce: 25
+  m_CrouchSpeed: 0.36
+  m_MovementSmoothing: 0.05
+  m_GroundCheck: {fileID: 3020021622907956054}
+  m_CeilingCheck: {fileID: 6423348368848635798}
+  m_CrouchDisableCollider: {fileID: 0}
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 1536
+  m_AirControl: 0
+  OnLandEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnCrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GameJam.Character+BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  Speed: 2
   WhatIsEnemies:
     serializedVersion: 2
     m_Bits: 1024
   AttackRange: 5
-  CurrentDirection: 0
+  DistanceWeaponPrefab: {fileID: 4126955700540653438, guid: de0308cc2aedf214e97fbb6228aaa7f7,
+    type: 3}
+  CaCWeaponPrefab: {fileID: 4126955700540653438, guid: 81362758064878041975e4a7445c4a0d,
+    type: 3}
+  m_WallCheck: {fileID: 4572924657240970813}
   damage: 5
   healthBar: {fileID: 0}
 --- !u!50 &5923798833321542500
@@ -122,15 +205,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 9
+  m_Material: {fileID: 6200000, guid: abc55c92c4f420249b45b8fba93b8de4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &1266649095909010037
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -171,7 +254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8224327914651733498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.079, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3763312118140627437}

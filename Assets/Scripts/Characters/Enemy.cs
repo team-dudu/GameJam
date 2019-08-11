@@ -5,51 +5,66 @@ namespace GameJam
 {
     public class Enemy : Character
     {
-        private bool _movingRight = true;
-		private Collider2D _platformCollider;
-		private Collider2D _objectCollider;
-
-		public float Speed = 1;
-        public float CastDistance = 2;
-        public Transform GroundDetection;
-		public LayerMask WhatIsEnemies;
+        public float Speed = 1;
+        public LayerMask WhatIsEnemies;
         public float AttackRange;
-        public IAttack Attack;
-		public MovingDirection CurrentDirection = MovingDirection.Left;
-		private float colliderBoundsMargin = 0.05f;
+        public GameObject DistanceWeaponPrefab;
+        public GameObject CaCWeaponPrefab;
 
-		new void Start()
+        protected int _roundTripCount = 0;
+
+        protected bool _cacActivated = false;
+        protected bool _jumpActivated = false;
+
+        private Collider2D _objectCollider;
+        private Collider2D _platformCollider;
+
+        [SerializeField]
+        protected Transform m_WallCheck; // A position marking where to check if the player is grounded.
+
+        private GameObject _distanceWeapon;
+        private GameObject _cacWeapon;
+
+        public new void Start()
         {
-			base.Start();
+            base.Start();
+            _objectCollider = GetComponent<Collider2D>();
 
-            Attack = GetComponent<IAttack>();
-			_objectCollider = GetComponent<Collider2D>();
-		}
+            _distanceWeapon = Instantiate(DistanceWeaponPrefab, transform);
+            _cacWeapon = Instantiate(CaCWeaponPrefab, transform);
+        }
 
-		new void Update()
+        public new void Update()
         {
-			base.Update();
-			if (_platformCollider == null)
-			{
-				var groundInfo = Physics2D.Raycast(GroundDetection.position, Vector2.down, CastDistance);
-				if (groundInfo.collider)
-				{
-					_platformCollider = groundInfo.collider;
-					MoveEnemy();
-				}
+            if (_isDead) return;
+            base.Update();
 
-				return;
-			}
-			else
-			{
-				MoveEnemy();
-			}
+            var groundInfo = Physics2D.Raycast(m_GroundCheck.position, Vector2.down, k_GroundedRadius);
+            if (groundInfo.collider)
+            {
+                _platformCollider = groundInfo.collider;
+            }
 
-			var enemiesToDamage = Physics2D.OverlapCircleAll(transform.position, AttackRange, WhatIsEnemies);
+            groundInfo = Physics2D.Raycast(m_WallCheck.position, Vector2.right, k_GroundedRadius);
+            if (groundInfo.collider)
+            {
+                Flip();
+                _roundTripCount++;
+            }
+
+
+            MoveEnemy();
+
+            if (_cacActivated)
+            {
+                _cacWeapon.GetComponent<IAttack>().Shoot(transform.right);
+            }
+
+            var enemiesToDamage = Physics2D.OverlapCircleAll(transform.position, AttackRange, WhatIsEnemies);
             foreach (var t in enemiesToDamage)
             {
                 var enemyPosition = t.GetComponent<PlayerController>().transform.position;
-                Attack.Shoot(enemyPosition - transform.position);
+                _distanceWeapon.GetComponent<IAttack>().Shoot(enemyPosition - transform.position);
             }
         }
 
@@ -59,63 +74,38 @@ namespace GameJam
             Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
 
-		public void MoveEnemy()
-		{
-			const int roundedDecimal = 2;
-			var xDir = 0f;
+        public void MoveEnemy()
+        {
+            Move(m_FacingRight ? Speed : -Speed, false, _jumpActivated);
+            const int roundedDecimal = 2;
 
-			// Wait for the enemy to touch the ground before moving
-			if (_platformCollider?.IsTouchingLayers() != true)
-			{
-				return;
-			}
+            // Wait for the enemy to touch the ground before moving
+            if (_platformCollider?.IsTouchingLayers() != true)
+            {
+                return;
+            }
 
-			var leftPlatformLimit = (float)Math.Round(_platformCollider.bounds.min.x, roundedDecimal);
-			var rightPlatformLimit = (float)Math.Round(_platformCollider.bounds.max.x, roundedDecimal);
-			var isSwitchingDirection = false;
+            var leftPlatformLimit = (float) Math.Round(_platformCollider.bounds.min.x, roundedDecimal);
+            var rightPlatformLimit = (float) Math.Round(_platformCollider.bounds.max.x, roundedDecimal);
 
-			switch (CurrentDirection)
-			{
-				case MovingDirection.Left:
-					var enemyLeftLimit = (float)Math.Round(_objectCollider.bounds.min.x, roundedDecimal);
-					if (enemyLeftLimit > leftPlatformLimit)
-					{
-						xDir = -1f;
-						_animator.SetAnimation(AnimationParameter.IsMoving, true);
-					}
-					else
-					{
-						CurrentDirection = MovingDirection.Right;
-						isSwitchingDirection = true;
-						_animator.SetAnimation(AnimationParameter.IsMoving, false);
-					}
-					break;
-				case MovingDirection.Right:
-					var enemyRightLimit = (float)Math.Round(_objectCollider.bounds.max.x, roundedDecimal);
-					if (enemyRightLimit < rightPlatformLimit)
-					{
-						xDir = -1f;
-						_animator.SetAnimation(AnimationParameter.IsMoving, true);
-					}
-					else
-					{
-						CurrentDirection = MovingDirection.Left;
-						isSwitchingDirection = true;
-						_animator.SetAnimation(AnimationParameter.IsMoving, false);
-					}
-					break;
-			}
-
-			if (isSwitchingDirection)
-			{
-				transform.Rotate(0f, 180f, 0f);
-			}
-
-			transform.Translate(Time.deltaTime * Speed * new Vector3(
-				x: xDir,
-				y: 0,
-				z: 0
-			));
-		}
-	}
+            if (m_FacingRight)
+            {
+                var enemyRightLimit = (float) Math.Round(_objectCollider.bounds.max.x, roundedDecimal);
+                if (enemyRightLimit >= rightPlatformLimit)
+                {
+                    Flip();
+                    _roundTripCount++;
+                }
+            }
+            else
+            {
+                var enemyLeftLimit = (float) Math.Round(_objectCollider.bounds.min.x, roundedDecimal);
+                if (enemyLeftLimit <= leftPlatformLimit)
+                {
+                    Flip();
+                    _roundTripCount++;
+                }
+            }
+        }
+    }
 }

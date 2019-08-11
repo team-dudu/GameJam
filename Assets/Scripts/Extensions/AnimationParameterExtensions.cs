@@ -22,6 +22,8 @@
 					return AnimationNames.Trigger.Fire;
                 case AnimationParameter.Open:
                     return AnimationNames.Trigger.Open;
+				case AnimationParameter.Intro:
+					return AnimationNames.Trigger.Intro;
 
                 #endregion
 

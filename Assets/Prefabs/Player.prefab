@@ -214,9 +214,13 @@ MonoBehaviour:
   health: 5
   IsMoving: 0
   IsAttacking: 0
-  moveSpeed: 20
-  state: 0
+  ShouldDisappear: 1
+  weaponPrefabs:
+  - {fileID: 4126955700540653438, guid: ff6b11e8ae15bb941bcb372838e405a1, type: 3}
+  - {fileID: 4126955700540653438, guid: 4583348ed80a8e043b3ae55ae6804642, type: 3}
+  - {fileID: 2505149858744455044, guid: 5ddc98bd6a2b8b14588571e3504f7b75, type: 3}
   m_JumpForce: 3200
+  m_DashForce: 25
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_AirControl: 1

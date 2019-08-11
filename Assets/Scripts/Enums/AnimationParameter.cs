@@ -12,6 +12,7 @@
 		Fire,
 		Attack,
 		Dash,
+		Intro,
         Open
 	}
 }

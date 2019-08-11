@@ -8,5 +8,9 @@ namespace GameJam
 {
     public class Zera : Boss
     {
+        public new void Update()
+        {
+            base.Update();
+        }
     }
 }

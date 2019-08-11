@@ -24,11 +24,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468987338567715893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1930599593674195953}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &735710404784148223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7934157066287707710}
+  m_Layer: 8
+  m_Name: WallDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7934157066287707710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735710404784148223}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1930599593674195953}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930599593674195957
 GameObject:
@@ -44,7 +74,7 @@ GameObject:
   - component: {fileID: 1930599593674195954}
   - component: {fileID: 1930599593674195951}
   - component: {fileID: 3984539753551623517}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jiraya
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,11 +88,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930599593674195957}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 750.38, y: 269.65, z: -1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 750.38, y: 269.797, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2862551143253336963}
+  - {fileID: 5974392580373281367}
+  - {fileID: 7934157066287707710}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,16 +160,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  IsMoving: 0
-  IsAttacking: 0
-  Speed: 1
-  CastDistance: 2
-  GroundDetection: {fileID: 2862551143253336963}
+  ShouldDisappear: 1
+  m_JumpForce: 800
+  m_DashForce: 25
+  m_CrouchSpeed: 0.36
+  m_MovementSmoothing: 0.05
+  m_GroundCheck: {fileID: 2862551143253336963}
+  m_CeilingCheck: {fileID: 5974392580373281367}
+  m_CrouchDisableCollider: {fileID: 0}
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 1536
+  m_AirControl: 0
+  OnLandEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnCrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GameJam.Character+BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  Speed: 2
   WhatIsEnemies:
     serializedVersion: 2
     m_Bits: 1024
   AttackRange: 5
-  CurrentDirection: 0
+  DistanceWeaponPrefab: {fileID: 4126955700540653438, guid: 2c534023e4f2daf4c8e16b09370cd425,
+    type: 3}
+  CaCWeaponPrefab: {fileID: 4126955700540653438, guid: 9f471bdbdfb80864a999e5435fe21581,
+    type: 3}
+  m_WallCheck: {fileID: 7934157066287707710}
   damage: 2
   healthBar: {fileID: 0}
 --- !u!95 &1930599593674195954
@@ -171,14 +225,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 9
+  m_Material: {fileID: 6200000, guid: abc55c92c4f420249b45b8fba93b8de4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!70 &3984539753551623517
 CapsuleCollider2D:
@@ -196,3 +250,33 @@ CapsuleCollider2D:
   m_Offset: {x: -0.118270874, y: -0.31098938}
   m_Size: {x: 0.9347229, y: 1.5233765}
   m_Direction: 0
+--- !u!1 &2672404664428250825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5974392580373281367}
+  m_Layer: 8
+  m_Name: Ceil Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5974392580373281367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2672404664428250825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1930599593674195953}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
-  damage: 1
+  damage: 10
   rb: {fileID: 3532110220365235350}
   whatIsTarget:
     serializedVersion: 2

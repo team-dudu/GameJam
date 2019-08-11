@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 namespace GameJam
 {
-    public class MU : Boss
+    public class Mu : Boss
     {
+        public new void Update()
+        {
+            base.Update();
+        }
     }
 }

@@ -410,43 +410,49 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsJumping
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: TriggerFire
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: TriggerAttack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: TriggerDamaged
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: TriggerDash
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: TriggerJumpFire
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: TriggerDeath
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -508,13 +514,13 @@ AnimatorStateMachine:
     m_Position: {x: 350, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6997810953296796814}
-    m_Position: {x: 230, y: 570, z: 0}
+    m_Position: {x: 220, y: 570, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6330472622166081136}
     m_Position: {x: 360, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3101652475863460066}
-    m_Position: {x: 360, y: 280, z: 0}
+    m_Position: {x: 350, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9102183229641027649}
     m_Position: {x: 360, y: 350, z: 0}
