@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace GameJam
 {
-    public class Boss : Character
+    public class Boss : Enemy
     {
         int health = 50;
         public int damage;
