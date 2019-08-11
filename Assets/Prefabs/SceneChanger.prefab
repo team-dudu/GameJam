@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8274723075032680911}
   - component: {fileID: 2055644800726147399}
+  - component: {fileID: 169938481066853732}
   m_Layer: 0
   m_Name: enterDoor
   m_TagString: Untagged
@@ -44,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3972347, y: 0.07958317}
+  m_Offset: {x: -0.3931916, y: -0.13055748}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,8 +56,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5140696, y: 2.7843504}
+  m_Size: {x: 0.6489939, y: 2.1466818}
   m_EdgeRadius: 0
+--- !u!114 &169938481066853732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126990526562728063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bd338735b48ce48ace703c466e5b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &243893972985699985
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +81,7 @@ GameObject:
   - component: {fileID: 243893972985699989}
   - component: {fileID: 243893972985699988}
   - component: {fileID: 243893972985699990}
-  - component: {fileID: 385631602624724048}
+  - component: {fileID: 2796327556055020556}
   m_Layer: 0
   m_Name: SceneChanger
   m_TagString: End
@@ -154,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetScene: 2
---- !u!95 &385631602624724048
+--- !u!95 &2796327556055020556
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -183,6 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 51192855314899338}
   - component: {fileID: 2353224199010957200}
+  - component: {fileID: 561150023204427908}
   m_Layer: 0
   m_Name: opendoor
   m_TagString: Untagged
@@ -230,3 +244,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.822898, y: 2.78435}
   m_EdgeRadius: 0
+--- !u!114 &561150023204427908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7958657697340827409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e065da03b4f017b4abfd8eece1ab15d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
