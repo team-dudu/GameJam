@@ -11,6 +11,7 @@
 		Damaged,
 		Fire,
 		Attack,
-		Dash
+		Dash,
+        Open
 	}
 }
