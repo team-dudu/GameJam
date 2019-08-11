@@ -41,8 +41,10 @@ namespace GameJam
         };
 
         // Start is called before the first frame update
-        void Start()
+        new void Start()
         {
+			base.Start();
+
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
             animator = GetComponent<Animator>();
@@ -140,7 +142,6 @@ namespace GameJam
             }
         }
 
-
         public void Move(float move, bool crouch, bool jump)
         {
             // If crouching, check to see if the character can stand up
@@ -231,7 +232,6 @@ namespace GameJam
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce), ForceMode2D.Impulse);
             }
         }
-
 
         private void Flip()
         {
