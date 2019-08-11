@@ -7,6 +7,8 @@ namespace GameJam
 {
     public class PlayerController : Character
     {
+		public Transform HealthBar;
+
         public GameObject[] weaponPrefabs;
         private GameObject weapon;
         private int currentWeapon = 0;
@@ -91,6 +93,20 @@ namespace GameJam
                 weapon = Instantiate(prefab, transform);
             }
         }
+
+		public new void TakeDamage(int damage)
+		{
+			base.TakeDamage(damage);
+
+			// Update health bar on UI
+			var bar = HealthBar.Find("Bar");
+
+			bar.localScale = new Vector3(
+				(float)health / MaxHealth,
+				bar.localScale.y,
+				bar.localScale.z
+			);
+		}
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
