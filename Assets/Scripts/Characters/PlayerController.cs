@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace GameJam
 {
@@ -124,6 +125,7 @@ namespace GameJam
         private void StartLevelTransition()
         {
             print("Next Level");
+            SceneManager.LoadScene(1);
             // throw new NotImplementedException();
         }
 

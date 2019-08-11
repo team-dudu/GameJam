@@ -44,13 +44,16 @@ public class Crate : MonoBehaviour
         {
             openable = false;
 
-            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-            player.AddWeaponToInventory(objectsRessourceData.Weapons[0]);
+            playerController = collision.gameObject.GetComponent<PlayerController>();
         }
     }
 
     private void OpenCrate()
     {
-        throw new NotImplementedException();
+        if(playerController!=null)
+        {
+            playerController.AddWeaponToInventory(objectsRessourceData.Weapons[0]);
+        }
+       
     }
 }
