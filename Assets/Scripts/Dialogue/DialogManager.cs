@@ -1,11 +1,28 @@
-﻿using System;
-using System.Collections;
+﻿using GameJam;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogManager : MonoBehaviour
+public class DialogManager : MonoBehaviourSingleton<DialogManager>
 {
+    public bool IsDialoging = false;
+
+    private static DialogManager m_Instance = null;
+
+    public static DialogManager Instance
+    {
+        get
+        {
+            if(m_Instance == null)
+            {
+                m_Instance = (DialogManager)FindObjectOfType(typeof(DialogManager));
+                if (m_Instance == null)
+                    m_Instance = (new GameObject(typeof(DialogManager).Name)).AddComponent<DialogManager>();
+                //DontDestroyOnLoad (m_Instance.gameObject);
+            }
+            return m_Instance;
+        }
+    }
     public Queue<string> sentences;
 
     public Canvas canvas;
@@ -14,7 +31,7 @@ public class DialogManager : MonoBehaviour
 
     void Update()
     {
-        if(sentences!=null)
+        if(sentences!=null && IsDialoging)
         {
             if(Input.GetButtonDown("Submit"))
             {
@@ -25,8 +42,11 @@ public class DialogManager : MonoBehaviour
 
     public void StartDialog(Dialog dialog)
     {
+        IsDialoging = true;
 
-        if(sentences== null)
+        canvas.gameObject.SetActive(true);
+
+        if (sentences== null)
         {
             sentences = new Queue<string>();
         }
@@ -59,6 +79,7 @@ public class DialogManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        IsDialoging = false;
         canvas.gameObject.SetActive(false);
         Time.timeScale = 1;
     }

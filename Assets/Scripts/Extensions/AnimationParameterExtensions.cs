@@ -20,12 +20,14 @@
 					return AnimationNames.Trigger.DeathIdle;
 				case AnimationParameter.Fire:
 					return AnimationNames.Trigger.Fire;
+                case AnimationParameter.Open:
+                    return AnimationNames.Trigger.Open;
 
-				#endregion
+                #endregion
 
-				#region Booleans
+                #region Booleans
 
-				case AnimationParameter.IsAttacking:
+                case AnimationParameter.IsAttacking:
 					return AnimationNames.Boolean.IsAttacking;
 				case AnimationParameter.IsJumping:
 					return AnimationNames.Boolean.IsJumping;
