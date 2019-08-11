@@ -61,14 +61,12 @@ namespace GameJam
             Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
             if (Input.GetButtonDown("Dash"))
             {
-                // TODO enum
-                _animator.SetTrigger("TriggerDash");
+                _animator.SetAnimation(AnimationParameter.Dash);
                 Move(m_FacingRight ? m_DashForce : -m_DashForce, false, false);
             }
 
             if (Input.GetButton("Fire1") && _animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" && !Input.GetButton("Dash"))
             {
-                // TODO enum
                 IAttack attack = weapon.GetComponent<IAttack>();
 
                 if (attack is MeleeAttack)
@@ -184,42 +182,20 @@ namespace GameJam
 
             if (m_Grounded && Math.Abs(move) > 0.01)
             {
-                // TODO enum
-                _animator.SetBool("IsMoving", true);                
+                _animator.SetAnimation(AnimationParameter.IsMoving, true);                
             }
             else
             {
-                // TODO enum
-                _animator.SetBool("IsMoving", false);
+                _animator.SetAnimation(AnimationParameter.IsMoving, false);
             }
 
             if(m_Grounded)
             {
-                // TODO enum
-                _animator.SetBool("IsJumping", false);
+                _animator.SetAnimation(AnimationParameter.IsJumping, false);
             }
             else
             {
-                // TODO enum
-                _animator.SetBool("IsJumping", true);
-            }
-
-            if (m_Grounded && Math.Abs(move) > 0.01)
-            {
-                _animator.SetBool("IsMoving", true);
-            }
-            else
-            {
-                _animator.SetBool("IsMoving", false);
-            }
-
-            if (m_Grounded)
-            {
-                _animator.SetBool("IsJumping", false);
-            }
-            else
-            {
-                _animator.SetBool("IsJumping", true);
+                _animator.SetAnimation(AnimationParameter.IsJumping, true);
             }
 
             //only control the player if grounded or airControl is turned on
