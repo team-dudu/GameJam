@@ -18,6 +18,7 @@
 			public const string Fire = "TriggerFire";
 			public const string Attack = "TriggerAttack";
 			public const string Dash = "TriggerDash";
-		}
+			public const string Open = "TriggerOpen";
+        }
 	}
 }
