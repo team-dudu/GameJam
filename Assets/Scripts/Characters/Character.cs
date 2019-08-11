@@ -93,7 +93,7 @@ namespace GameJam
             }
         }
 
-        public void Die()
+		public virtual void Die()
         {
             _animator.SetAnimation(AnimationParameter.Death);
             _isDead = true;

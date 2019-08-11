@@ -67,6 +67,11 @@ namespace GameJam
             }
         }
 
+        public void Restart()
+        {
+            SceneManager.LoadScene(0);
+        }
+
 		public new void TakeDamage(int damage)
 		{
 			base.TakeDamage(damage);
