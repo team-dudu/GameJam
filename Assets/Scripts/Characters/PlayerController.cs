@@ -99,9 +99,6 @@ namespace GameJam
                 case "Friendly":
                     print("ok");
                     break;
-                case "End":
-                    StartLevelTransition();
-                    break;
             }
         }
 
@@ -118,13 +115,6 @@ namespace GameJam
         public void AddConsommableToInventory(Consommable consommable)
         {
             inventory.Consommables.Add(consommable);
-        }
-
-        private void StartLevelTransition()
-        {
-            print("Next Level");
-            SceneManager.LoadScene(1);
-            // throw new NotImplementedException();
         }
 
         [Header("Events")] [Space] public UnityEvent OnLandEvent;
