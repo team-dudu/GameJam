@@ -8,6 +8,7 @@ namespace GameJam
         public float moveSpeed = 10f;
         public State state = State.Alive;
         public IAttack attack;
+        public Inventory inventory;
         
         Rigidbody2D rigidBody;
         AudioSource audioSource;
@@ -67,6 +68,20 @@ namespace GameJam
                     StartLevelTransition();
                     break;
             }
+        }
+
+        public void AddWeaponToInventory(Weapon weapon)
+        {
+            if (inventory == null)
+            {
+                inventory = new Inventory();
+            }
+            inventory.Weapons.Add(weapon);
+        }
+
+        public void AddConsommableToInventory(Consommable consommable)
+        {
+            inventory.Consommables.Add(consommable);
         }
 
         private void StartLevelTransition()
