@@ -73,6 +73,7 @@ namespace GameJam
             Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
             if (Input.GetButtonDown("Dash"))
             {
+                // TODO enum
                 animator.SetTrigger("TriggerDash");
                 Move(m_FacingRight ? m_DashForce : -m_DashForce, false, false);
             }
@@ -80,6 +81,7 @@ namespace GameJam
             if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" &&
                 !Input.GetButton("Dash"))
             {
+                // TODO enum
                 animator.SetTrigger("TriggerFire");
                 weapon.GetComponent<IAttack>()?.Shoot(transform.right);
             }
@@ -184,20 +186,24 @@ namespace GameJam
             }
 
             if (m_Grounded && Math.Abs(move) > 0.01)
-            {                
+            {
+                // TODO enum
                 animator.SetBool("IsMoving", true);                
             }
             else
             {
+                // TODO enum
                 animator.SetBool("IsMoving", false);
             }
 
             if(m_Grounded)
             {
+                // TODO enum
                 animator.SetBool("IsJumping", false);
             }
             else
             {
+                // TODO enum
                 animator.SetBool("IsJumping", true);
             }
 
