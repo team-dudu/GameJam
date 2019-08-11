@@ -25,7 +25,6 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
     }
     public Queue<string> sentences;
 
-    public Canvas canvas;
     public Text nameText;
     public Text dialogueText;
 
@@ -44,7 +43,7 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
     {
         IsDialoging = true;
 
-        canvas.gameObject.SetActive(true);
+		gameObject.SetActive(true);
 
         if (sentences== null)
         {
@@ -80,7 +79,7 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
     private void EndDialogue()
     {
         IsDialoging = false;
-        canvas.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         Time.timeScale = 1;
     }
 }
