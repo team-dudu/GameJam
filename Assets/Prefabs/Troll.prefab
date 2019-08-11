@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  IsMoving: 0
+  IsAttacking: 0
   ShouldDisappear: 1
   Speed: 1.5
   CastDistance: 2
