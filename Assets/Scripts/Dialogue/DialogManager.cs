@@ -14,9 +14,12 @@ public class DialogManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Submit"))
+        if(sentences!=null)
         {
-            DisplayNextSentence();
+            if(Input.GetButtonDown("Submit"))
+            {
+                DisplayNextSentence();
+            }
         }
     }
 
@@ -32,7 +35,7 @@ public class DialogManager : MonoBehaviour
         nameText.text = dialog.Name;
 
         sentences.Clear();
-
+        
         foreach (string sentence in dialog.Sentences)
         {
             sentences.Enqueue(sentence);

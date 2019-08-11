@@ -11,6 +11,8 @@ public class Crate : MonoBehaviour
 {
     public bool openable = false;
 
+    private DialogManager dialogManager = new DialogManager();
+
     public ObjectsRessourceData objectsRessourceData = new ObjectsRessourceData();
     
     private string gameDataFileName = "Objects.json";
@@ -35,6 +37,8 @@ public class Crate : MonoBehaviour
         if(collision.collider.tag=="Player")
         {
             openable = true;
+
+            playerController = collision.gameObject.GetComponent<PlayerController>();
         }
     }
 
@@ -43,8 +47,6 @@ public class Crate : MonoBehaviour
         if (collision.collider.tag == "Player")
         {
             openable = false;
-
-            playerController = collision.gameObject.GetComponent<PlayerController>();
         }
     }
 
@@ -53,7 +55,16 @@ public class Crate : MonoBehaviour
         if(playerController!=null)
         {
             playerController.AddWeaponToInventory(objectsRessourceData.Weapons[0]);
+
+            Dialog dialog = new Dialog
+            {
+                Name = "Coffre",
+                Sentences = new Queue()
+            };
+
+            dialog.Sentences.Enqueue("Tu viens de trouver " + objectsRessourceData.Weapons[0].name);
+
+            dialogManager.StartDialog(dialog);
         }
-       
     }
 }
