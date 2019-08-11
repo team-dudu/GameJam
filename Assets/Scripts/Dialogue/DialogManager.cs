@@ -9,6 +9,10 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
 
     private static DialogManager m_Instance = null;
 
+    public GameObject canvas;
+    public Text nameText;
+    public Text dialogueText;
+
     public static DialogManager Instance
     {
         get
@@ -25,8 +29,7 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
     }
     public Queue<string> sentences;
 
-    public Text nameText;
-    public Text dialogueText;
+    
 
     void Update()
     {
@@ -71,6 +74,17 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
             return;
         }
 
+        if(!IsDialoging)
+        {
+            IsDialoging = true;
+        }
+
+        if (canvas == null)
+        {
+             canvas = transform.parent.gameObject;
+        }
+        canvas.gameObject.SetActive(true);
+       
         string sentence = sentences.Dequeue();
 
         dialogueText.text = sentence;
