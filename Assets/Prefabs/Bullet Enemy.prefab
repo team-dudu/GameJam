@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2131016180268511039}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.218, y: 0.016, z: -12.856689}
+  m_LocalPosition: {x: 0.218, y: 0.016, z: -1}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -148,5 +148,5 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 1024
-  distanceLimit: 10
+  distanceLimit: 8
   direction: {x: 1, y: 0}

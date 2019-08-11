@@ -4,6 +4,8 @@ namespace GameJam
 {
     public abstract class Character : MonoBehaviour, IDamageable
     {
+        Animator animator;
+
         public int health = 5;
 		public bool IsMoving = false;
 		public bool IsAttacking = false;
@@ -15,8 +17,14 @@ namespace GameJam
 			_animator = GetComponent<Animator>();
 		}
 
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
+
         public void TakeDamage(int damage)
         {
+            animator.SetTrigger("TriggerDamaged");
             health -= damage;
             if (health <= 0)
             {

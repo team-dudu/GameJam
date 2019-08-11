@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,15 +9,16 @@ namespace GameJam
         public float moveSpeed = 10f;
         public State state = State.Alive;
         public IAttack attack;
+        Animator animator;
         public Inventory inventory;
         
         Rigidbody2D rigidBody;
         AudioSource audioSource;
 
         private float moveInput;
-        private bool facingRight = true;
 
         [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+        [SerializeField] private float m_DashForce = 25f;
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
         [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
@@ -43,18 +45,25 @@ namespace GameJam
         {
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
+            animator = GetComponent<Animator>();
             attack = GetComponent<IAttack>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                attack?.Shoot(transform.right);
-            }
+           Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
+           if(Input.GetButtonDown("Dash"))
+           {
+               animator.SetTrigger("TriggerDash");
+               Move(m_FacingRight? m_DashForce : -m_DashForce, false, false);
+           }	
+           if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" && !Input.GetButton("Dash"))
+           {
+               animator.SetTrigger("TriggerFire");
+               attack?.Shoot(transform.right);
+               attack?.Shoot(transform.right);
+           }	
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -143,6 +152,25 @@ namespace GameJam
                     crouch = true;
                 }
             }
+            
+            if (m_Grounded && Math.Abs(move) > 0.01)
+           {                
+               animator.SetBool("IsMoving", true);                
+           }	
+           else
+           {
+               animator.SetBool("IsMoving", false);
+           }
+           
+           if(m_Grounded)
+           {
+               animator.SetBool("IsJumping", false);
+           }
+          else
+           {
+               animator.SetBool("IsJumping", true);
+           }
+           }
 
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
