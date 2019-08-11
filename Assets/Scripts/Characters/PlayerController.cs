@@ -7,19 +7,14 @@ namespace GameJam
 {
     public class PlayerController : Character
     {
-        public float moveSpeed = 10f;
-        public State state = State.Alive;
-
         public GameObject[] weaponPrefabs;
         private GameObject weapon;
         private int currentWeapon = 0;
 
-        Animator animator;
         public Inventory inventory;
 
         Rigidbody2D rigidBody;
         AudioSource audioSource;
-        Animator animator;
 
         private float moveInput;
 
@@ -49,12 +44,6 @@ namespace GameJam
         private bool m_FacingRight = true; // For determining which way the player is currently facing.
         private Vector3 m_Velocity = Vector3.zero;
 
-        public enum State
-        {
-            Alive,
-            Dying
-        };
-
         // Start is called before the first frame update
         new void Start()
         {
@@ -62,7 +51,6 @@ namespace GameJam
 
             rigidBody = GetComponent<Rigidbody2D>();
             audioSource = GetComponent<AudioSource>();
-            animator = GetComponent<Animator>();
             if (weaponPrefabs.Length > 0)
                 weapon = Instantiate(weaponPrefabs[currentWeapon], transform);
         }
@@ -74,16 +62,25 @@ namespace GameJam
             if (Input.GetButtonDown("Dash"))
             {
                 // TODO enum
-                animator.SetTrigger("TriggerDash");
+                _animator.SetTrigger("TriggerDash");
                 Move(m_FacingRight ? m_DashForce : -m_DashForce, false, false);
             }
 
-            if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" &&
-                !Input.GetButton("Dash"))
+            if (Input.GetButton("Fire1") && _animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" && !Input.GetButton("Dash"))
             {
                 // TODO enum
-                animator.SetTrigger("TriggerFire");
-                weapon.GetComponent<IAttack>()?.Shoot(transform.right);
+                IAttack attack = weapon.GetComponent<IAttack>();
+
+                if (attack is MeleeAttack)
+                {
+                    _animator.SetAnimation(AnimationParameter.Attack);
+                }
+                else if (attack is DistanceAttack)
+                {
+                    _animator.SetAnimation(AnimationParameter.Fire);
+                }
+
+                attack?.Shoot(transform.right);
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -188,23 +185,23 @@ namespace GameJam
             if (m_Grounded && Math.Abs(move) > 0.01)
             {
                 // TODO enum
-                animator.SetBool("IsMoving", true);                
+                _animator.SetBool("IsMoving", true);                
             }
             else
             {
                 // TODO enum
-                animator.SetBool("IsMoving", false);
+                _animator.SetBool("IsMoving", false);
             }
 
             if(m_Grounded)
             {
                 // TODO enum
-                animator.SetBool("IsJumping", false);
+                _animator.SetBool("IsJumping", false);
             }
             else
             {
                 // TODO enum
-                animator.SetBool("IsJumping", true);
+                _animator.SetBool("IsJumping", true);
             }
 
             if (m_Grounded && Math.Abs(move) > 0.01)

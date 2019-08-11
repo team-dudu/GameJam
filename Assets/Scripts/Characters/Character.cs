@@ -1,12 +1,9 @@
-﻿using UnityEditor.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameJam
 {
 	public abstract class Character : MonoBehaviour, IDamageable
 	{
-        Animator animator;
-
 		public int health = 5;
 		public bool IsMoving = false;
 		public bool IsAttacking = false;
@@ -27,11 +24,6 @@ namespace GameJam
 			//Die();
 		}
 
-        private void Start()
-        {
-            animator = GetComponent<Animator>();
-        }
-
 		public void TakeDamage(int damage)
 		{
 			if (health <= 0)
@@ -46,7 +38,7 @@ namespace GameJam
 			}
 			else
 			{
-				_animator.SetTrigger("TriggerDamaged");
+				_animator.SetAnimation(AnimationParameter.Damaged);
 			}
 		}
 
