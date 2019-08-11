@@ -1,25 +1,22 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using GameJam;
+using UnityEngine;
 
-public class ChangeScene : MonoBehaviour
+public class OpenDoor : MonoBehaviour
 {
-    [SerializeField]
-    public int targetScene = -1;
+    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _animator = transform.GetComponentInParent<Animator>();
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
         {
-            if (targetScene != -1)
-            {
-                SceneManager.LoadScene(targetScene);
-            }
+            collision.otherCollider.isTrigger = true;
+            _animator.SetAnimation(AnimationParameter.Open);
         }
     }
 

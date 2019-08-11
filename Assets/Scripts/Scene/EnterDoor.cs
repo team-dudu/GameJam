@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeScene : MonoBehaviour
+public class EnterDoor : MonoBehaviour
 {
-    [SerializeField]
-    public int targetScene = -1;
-
+    private int targetScene = -1;
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetScene = transform.parent.GetComponent<ChangeScene>().targetScene;
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
