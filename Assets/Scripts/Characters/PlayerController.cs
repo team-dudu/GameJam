@@ -9,10 +9,11 @@ namespace GameJam
         public float moveSpeed = 10f;
         public State state = State.Alive;
         public IAttack attack;
+        Animator animator;
+        public Inventory inventory;
         
         Rigidbody2D rigidBody;
         AudioSource audioSource;
-        Animator animator;
 
         private float moveInput;
 
@@ -53,20 +54,18 @@ namespace GameJam
         // Update is called once per frame
         void Update()
         {
-            Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
-
-            if(Input.GetButtonDown("Dash"))
-            {
-                animator.SetTrigger("TriggerDash");
-
-                Move(m_FacingRight? m_DashForce : -m_DashForce, false, false);
-            }
-
-            if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" && !Input.GetButton("Dash"))
-            {
-                animator.SetTrigger("TriggerFire");
-                attack?.Shoot(transform.right);
-            }
+           Move(Input.GetAxis("Horizontal"), false, Input.GetButtonDown("Jump"));
+           if(Input.GetButtonDown("Dash"))
+           {
+               animator.SetTrigger("TriggerDash");
+               Move(m_FacingRight? m_DashForce : -m_DashForce, false, false);
+           }	
+           if (Input.GetButton("Fire1") && animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" && !Input.GetButton("Dash"))
+           {
+               animator.SetTrigger("TriggerFire");
+               attack?.Shoot(transform.right);
+               attack?.Shoot(transform.right);
+           }	
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -80,6 +79,20 @@ namespace GameJam
                     StartLevelTransition();
                     break;
             }
+        }
+
+        public void AddWeaponToInventory(Weapon weapon)
+        {
+            if (inventory == null)
+            {
+                inventory = new Inventory();
+            }
+            inventory.Weapons.Add(weapon);
+        }
+
+        public void AddConsommableToInventory(Consommable consommable)
+        {
+            inventory.Consommables.Add(consommable);
         }
 
         private void StartLevelTransition()
@@ -140,24 +153,25 @@ namespace GameJam
                     crouch = true;
                 }
             }
-
+            
             if (m_Grounded && Math.Abs(move) > 0.01)
-            {                
-                animator.SetBool("IsMoving", true);                
-            }
-            else
-            {
-                animator.SetBool("IsMoving", false);
-            }
-
-            if(m_Grounded)
-            {
-                animator.SetBool("IsJumping", false);
-            }
-            else
-            {
-                animator.SetBool("IsJumping", true);
-            }
+           {                
+               animator.SetBool("IsMoving", true);                
+           }	
+           else
+           {
+               animator.SetBool("IsMoving", false);
+           }
+           
+           if(m_Grounded)
+           {
+               animator.SetBool("IsJumping", false);
+           }
+          else
+           {
+               animator.SetBool("IsJumping", true);
+           }
+           }
 
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
