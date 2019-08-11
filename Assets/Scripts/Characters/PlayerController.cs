@@ -69,10 +69,10 @@ namespace GameJam
 
         public void Restart()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
 
-		public new void TakeDamage(int damage)
+		public override void TakeDamage(int damage)
 		{
 			base.TakeDamage(damage);
 

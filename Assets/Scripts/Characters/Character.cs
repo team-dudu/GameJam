@@ -5,8 +5,9 @@ using UnityEngine.Events;
 namespace GameJam
 {
 	public abstract class Character : MonoBehaviour, IDamageable
-	{
-		public int MaxHealth = 100;
+    {
+
+        public int MaxHealth = 100;
 		public int health = 5;
 		public bool IsMoving = false;
 		public bool IsAttacking = false;
@@ -75,7 +76,7 @@ namespace GameJam
         {
         }
 
-        public void TakeDamage(int damage)
+        public virtual void TakeDamage(int damage)
         {
             if (health <= 0)
             {
