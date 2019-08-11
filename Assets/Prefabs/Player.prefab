@@ -121,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 1583486398869938680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.76, y: -11, z: -1}
-  m_LocalScale: {x: 2.81, y: 2.52, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1583486397528789469}
   - {fileID: 1583486397010776947}
@@ -215,8 +215,10 @@ MonoBehaviour:
   IsMoving: 0
   IsAttacking: 0
   ShouldDisappear: 1
-  moveSpeed: 20
-  state: 0
+  weaponPrefabs:
+  - {fileID: 4126955700540653438, guid: ff6b11e8ae15bb941bcb372838e405a1, type: 3}
+  - {fileID: 4126955700540653438, guid: 4583348ed80a8e043b3ae55ae6804642, type: 3}
+  - {fileID: 2505149858744455044, guid: 5ddc98bd6a2b8b14588571e3504f7b75, type: 3}
   m_JumpForce: 3200
   m_DashForce: 25
   m_CrouchSpeed: 0.36
