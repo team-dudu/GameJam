@@ -42,7 +42,7 @@ namespace GameJam
             if (Input.GetButton("Fire1") && _animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" &&
                 !Input.GetButton("Dash"))
             {
-                IAttack attack = weapon.GetComponent<IAttack>();
+                IAttack attack = weapon?.GetComponent<IAttack>();
 
                 if (attack is MeleeAttack)
                 {
