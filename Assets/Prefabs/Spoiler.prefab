@@ -155,7 +155,7 @@ MonoBehaviour:
   m_CrouchDisableCollider: {fileID: 0}
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_AirControl: 0
   OnLandEvent:
     m_PersistentCalls:

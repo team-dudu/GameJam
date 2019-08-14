@@ -76,8 +76,10 @@ namespace GameJam
 		{
 			base.TakeDamage(damage);
 
-			// Update health bar on UI
-			var bar = HealthBar.Find("Bar");
+            _animator.SetAnimation(AnimationParameter.Hurt);
+
+            // Update health bar on UI
+            var bar = HealthBar.Find("Bar");
 
 			bar.localScale = new Vector3(
 				(float)health / MaxHealth,
