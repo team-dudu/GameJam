@@ -19,7 +19,19 @@ namespace GameJam
 			animator.SetAnimation(animationToSet, value);
 		}
 
-		public static void SetAnimation(this Animator animator, AnimatorControllerParameter animationToSet,  object parameter = null)
+        public static bool TryGetAnimation(this Animator animator, AnimationParameter animation, object value = null)
+        {
+            var animationToSet = animator.parameters.Where(acp => acp.name == animation.ToAnimationName()).FirstOrDefault();
+
+            if (animationToSet == null)
+            {
+                return false; ;
+            }
+
+            return true;
+        }
+
+        public static void SetAnimation(this Animator animator, AnimatorControllerParameter animationToSet,  object parameter = null)
 		{
 			switch (animationToSet.type)
 			{

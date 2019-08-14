@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &399126254176276749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6934599209743666313}
+  m_Layer: 0
+  m_Name: Ceiling Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6934599209743666313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399126254176276749}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.009, y: 0.223, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1291926330047815981}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3060466593353037325
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3060466593353037325}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.201, y: -0.153, z: 0}
+  m_LocalPosition: {x: 0.009, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1291926330047815981}
@@ -54,11 +84,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4514294592424867029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.235, y: 0, z: 0}
+  m_LocalPosition: {x: -0.244, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1291926330047815981}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5327345908834139414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5537533165086385761}
+  m_Layer: 0
+  m_Name: Wall Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5537533165086385761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5327345908834139414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.323, y: -0.131, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1291926330047815981}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7380937675426685245
 GameObject:
@@ -91,10 +151,12 @@ Transform:
   m_GameObject: {fileID: 7380937675426685245}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.8341198, y: 1.2964461, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 6144081349502821945}
   - {fileID: 3987390046643714303}
+  - {fileID: 5537533165086385761}
+  - {fileID: 6934599209743666313}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,18 +172,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2498d392195f7cb4e94a45de2c2f2fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 100
   health: 5
   IsMoving: 0
   IsAttacking: 0
   ShouldDisappear: 1
+  m_JumpForce: 400
+  m_DashForce: 25
+  m_CrouchSpeed: 0.36
+  m_MovementSmoothing: 0.05
+  m_GroundCheck: {fileID: 6144081349502821945}
+  m_CeilingCheck: {fileID: 6934599209743666313}
+  m_CrouchDisableCollider: {fileID: 0}
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  m_AirControl: 0
+  OnLandEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnCrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GameJam.Character+BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   Speed: 1
-  CastDistance: 2
-  GroundDetection: {fileID: 6144081349502821945}
   WhatIsEnemies:
     serializedVersion: 2
     m_Bits: 0
   AttackRange: 0
-  CurrentDirection: 0
+  DistanceWeaponPrefab: {fileID: 4126955700540653438, guid: 4583348ed80a8e043b3ae55ae6804642,
+    type: 3}
+  CaCWeaponPrefab: {fileID: 4126955700540653438, guid: ff6b11e8ae15bb941bcb372838e405a1,
+    type: 3}
+  m_WallCheck: {fileID: 5537533165086385761}
 --- !u!114 &2794296759571661999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbfa15149004f01bed12af8f28a31ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  firePoint: {fileID: 3987390046643714303}
+  bulletPrefab: {fileID: 2131016180268511039, guid: 57ce61fb8c4a773429784af17e41e79c,
+    type: 3}
   startTimeBtwAttack: 0
 --- !u!212 &8895996372234640347
 SpriteRenderer:
@@ -177,7 +264,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ec2231bd2be61c44692e6e8ce5c829ed, type: 3}
   m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.16, y: 0.16}

@@ -52,8 +52,12 @@ namespace GameJam
                 _roundTripCount++;
             }
 
-
-            MoveEnemy();
+            //todo refacto
+            if(this.gameObject.name!= "Spoiler")
+            {
+                MoveEnemy();
+            }
+            
 
             if (_cacActivated)
             {

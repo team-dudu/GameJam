@@ -2,11 +2,31 @@
 
 namespace GameJam
 {
-    public class ObjectsRessourceData
+    public class ObjectsRessourceData : IObjectsRessourceData
     {
-        public List<Weapon> Weapons;
+        public List<Weapon> Weapons
+        {
+            get
+            {
+                return this.Weapons;
+            }
+            set
+            {
+                Weapons = value;
+            }
+        }
 
-        public List<Consommable> Consommables;
+        public List<Consommable> Consommables
+        {
+            get
+            {
+                return this.Consommables;
+            }
+            set
+            {
+                Consommables = value;
+            }
+        }
 
         public ObjectsRessourceData()
         {
@@ -41,5 +61,6 @@ namespace GameJam
             }
         };
         }
+
     }
 }

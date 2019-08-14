@@ -13,9 +13,9 @@ public class Crate : MonoBehaviour
 
     public bool opened = false;
 
-    private DialogManager dialogManager = new DialogManager();
+    private DialogManager dialogManager;
 
-    public ObjectsRessourceData objectsRessourceData = new ObjectsRessourceData();
+    public ObjectsRessourceData objectsRessourceData;
 
     private Animator animator;
 
@@ -26,6 +26,8 @@ public class Crate : MonoBehaviour
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        dialogManager = gameObject.GetComponent<DialogManager>();
+        objectsRessourceData = gameObject.GetComponent<IObjectsRessourceData>() as ObjectsRessourceData;
     }
 
     // Update is called once per frame
