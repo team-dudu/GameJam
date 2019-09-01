@@ -12,7 +12,7 @@ namespace GameJam
 
 			if (animationToSet == null)
 			{
-				Debug.LogWarning("Cannot find animation in the current animator. Defines it in your animator controller.", animator);
+				Debug.LogWarning("Cannot find animation " + animation + " in the current animator. Defines it in your animator controller.", animator);
 				return;
 			}
 

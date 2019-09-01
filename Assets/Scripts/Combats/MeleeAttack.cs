@@ -17,7 +17,7 @@ namespace GameJam
             _timeBtwAttack -= Time.deltaTime;
         }
 
-        public void Shoot(Vector3 direction)
+        public void Shoot(Vector3 direction,LayerMask? target)
         {
             if (_timeBtwAttack <= 0)
             {

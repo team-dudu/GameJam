@@ -15,7 +15,7 @@ namespace GameJam
             _timeBtwAttack -= Time.deltaTime;
         }
 
-        public void Shoot(Vector3 direction)
+        public void Shoot(Vector3 direction, LayerMask? whatIsEnemies = null)
         {
             if (_timeBtwAttack <= 0)
             {
@@ -24,6 +24,10 @@ namespace GameJam
                 direction.z = 0;
                 var bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
                 bullet.GetComponent<Bullet>().direction = direction;
+                if(whatIsEnemies!=null)
+                {
+                    bullet.GetComponent<Bullet>().whatIsTarget = (LayerMask) whatIsEnemies;
+                }
 
                 _timeBtwAttack = startTimeBtwAttack;
             }

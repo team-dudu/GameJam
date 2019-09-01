@@ -5,7 +5,7 @@ namespace GameJam
 {
     public class Enemy : Character
     {
-        public float Speed = 1;
+        public float Speed = 1f;
         public LayerMask WhatIsEnemies;
         public float AttackRange;
         public GameObject DistanceWeaponPrefab;
@@ -61,14 +61,14 @@ namespace GameJam
 
             if (_cacActivated)
             {
-                _cacWeapon.GetComponent<IAttack>().Shoot(transform.right);
+                _cacWeapon.GetComponent<IAttack>().Shoot(transform.right,WhatIsEnemies);
             }
 
             var enemiesToDamage = Physics2D.OverlapCircleAll(transform.position, AttackRange, WhatIsEnemies);
             foreach (var t in enemiesToDamage)
             {
                 var enemyPosition = t.GetComponent<PlayerController>().transform.position;
-                _distanceWeapon.GetComponent<IAttack>().Shoot(enemyPosition - transform.position);
+                _distanceWeapon.GetComponent<IAttack>().Shoot(enemyPosition - transform.position,WhatIsEnemies);
             }
         }
 

@@ -545,11 +545,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7988891115567135179, guid: 0cb493fac5919404893da72caa366cd5,
-        type: 3}
-      propertyPath: WhatIsEnemies.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cb493fac5919404893da72caa366cd5, type: 3}
 --- !u!1001 &495422515
@@ -1032,7 +1027,7 @@ PrefabInstance:
     - target: {fileID: 2586638157038427435, guid: 765fe6018bc68fe47af9f7c854ed4a4c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7599988
+      value: -1.759999
       objectReference: {fileID: 0}
     - target: {fileID: 2586638157038427435, guid: 765fe6018bc68fe47af9f7c854ed4a4c,
         type: 3}

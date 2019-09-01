@@ -53,7 +53,7 @@ namespace GameJam
                     _animator.SetAnimation(AnimationParameter.Fire);
                 }
 
-                attack?.Shoot(transform.right);
+                attack?.Shoot(transform.right,null);
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
