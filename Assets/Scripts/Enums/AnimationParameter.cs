@@ -2,6 +2,7 @@
 {
 	public enum AnimationParameter
 	{
+        Hurt,
 		IsMoving,
 		IsAttacking,
 		IsPlayerDetected,

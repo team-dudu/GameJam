@@ -12,14 +12,26 @@ namespace GameJam
 
 			if (animationToSet == null)
 			{
-				Debug.LogWarning("Cannot find animation in the current animator. Defines it in your animator controller.", animator);
+				Debug.LogWarning("Cannot find animation " + animation + " in the current animator. Defines it in your animator controller.", animator);
 				return;
 			}
 
 			animator.SetAnimation(animationToSet, value);
 		}
 
-		public static void SetAnimation(this Animator animator, AnimatorControllerParameter animationToSet,  object parameter = null)
+        public static bool TryGetAnimation(this Animator animator, AnimationParameter animation, object value = null)
+        {
+            var animationToSet = animator.parameters.Where(acp => acp.name == animation.ToAnimationName()).FirstOrDefault();
+
+            if (animationToSet == null)
+            {
+                return false; ;
+            }
+
+            return true;
+        }
+
+        public static void SetAnimation(this Animator animator, AnimatorControllerParameter animationToSet,  object parameter = null)
 		{
 			switch (animationToSet.type)
 			{

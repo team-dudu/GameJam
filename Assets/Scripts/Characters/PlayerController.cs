@@ -42,7 +42,7 @@ namespace GameJam
             if (Input.GetButton("Fire1") && _animator.GetCurrentAnimatorClipInfo(0)?[0].clip?.name != "Player_fire" &&
                 !Input.GetButton("Dash"))
             {
-                IAttack attack = weapon.GetComponent<IAttack>();
+                IAttack attack = weapon?.GetComponent<IAttack>();
 
                 if (attack is MeleeAttack)
                 {
@@ -53,7 +53,7 @@ namespace GameJam
                     _animator.SetAnimation(AnimationParameter.Fire);
                 }
 
-                attack?.Shoot(transform.right);
+                attack?.Shoot(transform.right,null);
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -76,8 +76,10 @@ namespace GameJam
 		{
 			base.TakeDamage(damage);
 
-			// Update health bar on UI
-			var bar = HealthBar.Find("Bar");
+            _animator.SetAnimation(AnimationParameter.Hurt);
+
+            // Update health bar on UI
+            var bar = HealthBar.Find("Bar");
 
 			bar.localScale = new Vector3(
 				(float)health / MaxHealth,

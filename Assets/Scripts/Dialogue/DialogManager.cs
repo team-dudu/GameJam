@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogManager : MonoBehaviourSingleton<DialogManager>
+public class DialogManager : MonoBehaviour
 {
-    public bool IsDialoging = false;
+
+    public bool IsDialoging;
 
     private static DialogManager m_Instance = null;
 

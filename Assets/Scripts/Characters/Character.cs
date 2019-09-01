@@ -159,7 +159,10 @@ namespace GameJam
             }
             else
             {
-                _animator.SetAnimation(AnimationParameter.IsJumping, true);
+               if(_animator.TryGetAnimation(AnimationParameter.IsJumping))
+               {
+                    _animator.SetAnimation(AnimationParameter.IsJumping, true);
+               }
             }
 
             //only control the player if grounded or airControl is turned on
