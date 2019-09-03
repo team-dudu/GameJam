@@ -10,6 +10,8 @@ public class DialogManager : MonoBehaviour
 
     private static DialogManager m_Instance = null;
 
+    public GameObject DialogWindow;
+
     public GameObject canvas;
     public Text nameText;
     public Text dialogueText;
@@ -18,25 +20,24 @@ public class DialogManager : MonoBehaviour
     {
         get
         {
-            if(m_Instance == null)
+            if (m_Instance == null)
             {
                 m_Instance = (DialogManager)FindObjectOfType(typeof(DialogManager));
                 if (m_Instance == null)
                     m_Instance = (new GameObject(typeof(DialogManager).Name)).AddComponent<DialogManager>();
-                //DontDestroyOnLoad (m_Instance.gameObject);
             }
             return m_Instance;
         }
     }
     public Queue<string> sentences;
 
-    
+
 
     void Update()
     {
-        if(sentences!=null && IsDialoging)
+        if (sentences != null && IsDialoging)
         {
-            if(Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Submit"))
             {
                 DisplayNextSentence();
             }
@@ -46,10 +47,9 @@ public class DialogManager : MonoBehaviour
     public void StartDialog(Dialog dialog)
     {
         IsDialoging = true;
+        DialogWindow.SetActive(true);
 
-		gameObject.SetActive(true);
-
-        if (sentences== null)
+        if (sentences == null)
         {
             sentences = new Queue<string>();
         }
@@ -58,7 +58,7 @@ public class DialogManager : MonoBehaviour
         nameText.text = dialog.Name;
 
         sentences.Clear();
-        
+
         foreach (string sentence in dialog.Sentences)
         {
             sentences.Enqueue(sentence);
@@ -75,17 +75,17 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
-        if(!IsDialoging)
+        if (!IsDialoging)
         {
             IsDialoging = true;
         }
 
         if (canvas == null)
         {
-             canvas = transform.parent.gameObject;
+            canvas = transform.parent.gameObject;
         }
         canvas.gameObject.SetActive(true);
-       
+
         string sentence = sentences.Dequeue();
 
         dialogueText.text = sentence;
@@ -94,7 +94,7 @@ public class DialogManager : MonoBehaviour
     private void EndDialogue()
     {
         IsDialoging = false;
-        gameObject.SetActive(false);
+        DialogWindow.SetActive(false);
         Time.timeScale = 1;
     }
 }

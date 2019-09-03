@@ -15,11 +15,13 @@ public class LaunchLevel1Dialog : MonoBehaviour
     public GameObject LeBiscuit;
     public GameObject Player;
 
+    private bool isLaBoutiqueTriggered = false;
+
     // Start is called before the first frame update
     void Start()
     {
         dialogTrigger = GetComponent<DialogTrigger>();
-        dialog = new Dialog{ Name = "Zerator le 10E" };
+        dialog = new Dialog { Name = "Zerator le 10E" };
         dialog.Sentences = new Queue();
         dialog.Sentences.Enqueue("Bienvenue à toi jeune streamer!");
         dialog.Sentences.Enqueue("Alors comme àça tu crois que toi, Le Gros DUDU tu peux devenir le roi du Twitch game?");
@@ -30,9 +32,11 @@ public class LaunchLevel1Dialog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var LeBiscuitToTrigger = Vector2.Distance(LeBiscuit.transform.position, Player.transform.position);
-        if(LeBiscuitToTrigger<DialogRange)
+        float LeBiscuitToTrigger = Vector2.Distance(LeBiscuit.transform.GetChild(0).position, Player.transform.position);
+
+        if (LeBiscuitToTrigger < DialogRange && !isLaBoutiqueTriggered)
         {
+            isLaBoutiqueTriggered = true;
             dialogTrigger = GetComponent<DialogTrigger>();
             dialog = new Dialog { Name = "Le vendeur" };
             dialog.Sentences = new Queue();
