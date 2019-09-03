@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LaunchLevel1Dialog : MonoBehaviour
 {
@@ -13,9 +14,12 @@ public class LaunchLevel1Dialog : MonoBehaviour
     private float DialogRange = 1f;
 
     public GameObject LeBiscuit;
+    public GameObject ZeraHouse;
     public GameObject Player;
 
     private bool isLaBoutiqueTriggered = false;
+    private bool isZeraHouseTriggered = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +48,22 @@ public class LaunchLevel1Dialog : MonoBehaviour
             dialog.Sentences.Enqueue("J'ai rien à te refiler pour offir aux viewers pour l'instant, vu que t'es un noname");
             dialog.Sentences.Enqueue("Mais repasse plus tard j'aurais plein de trucs pour toi!");
             dialogTrigger.TriggerDialog(dialog);
+        }
+
+        float ZeraHouseDistance = Vector2.Distance(ZeraHouse.transform.position, Player.transform.position);
+
+        if (ZeraHouseDistance < DialogRange && !isZeraHouseTriggered)
+        {
+            isZeraHouseTriggered = true;
+            dialogTrigger = GetComponent<DialogTrigger>();
+            dialog = new Dialog { Name = "Zera le 10E" };
+            dialog.Sentences = new Queue();
+            dialog.Sentences.Enqueue("Bienvenue dans mon manoir!");
+            dialog.Sentences.Enqueue("Tente maintenant de te frayer un chemin dans mon manoir");
+            dialogTrigger.TriggerDialog(dialog);
+            SceneManager.LoadScene(1);
+
+
         }
     }
 }
