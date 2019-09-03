@@ -54416,6 +54416,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5913103554677498354, guid: 08ce5af3d63d7914db0a46b726998a75,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1745240574357775987, guid: 08ce5af3d63d7914db0a46b726998a75,
         type: 3}
       propertyPath: LeBiscuit

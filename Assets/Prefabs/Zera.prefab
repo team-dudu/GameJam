@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114915255139985438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.612, y: -0.991, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3763312118140627437}
@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 2428053523298068568}
   - component: {fileID: 5923798833321542500}
   - component: {fileID: 1266649095909010037}
+  - component: {fileID: 383180163}
   m_Layer: 8
   m_Name: Zera
   m_TagString: Untagged
@@ -158,7 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2179325878fc4b64e811f9e489af6d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 100
   health: 200
+  IsMoving: 0
+  IsAttacking: 0
   ShouldDisappear: 1
   m_JumpForce: 800
   m_DashForce: 25
@@ -230,6 +234,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0.034240723, y: -0.22990417}
   m_Size: {x: 0.8088379, y: 1.650177}
   m_Direction: 0
+--- !u!95 &383180163
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286961465475581001}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1fb57fe00e31774458c9bfc50ca01b9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8224327914651733498
 GameObject:
   m_ObjectHideFlags: 0
