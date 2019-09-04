@@ -36,7 +36,7 @@ public class LaunchLevel1Dialog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float LeBiscuitToTrigger = Vector2.Distance(LeBiscuit.transform.GetChild(0).position, Player.transform.position);
+        float LeBiscuitToTrigger = Vector2.Distance(LeBiscuit.transform.position, Player.transform.position);
 
         if (LeBiscuitToTrigger < DialogRange && !isLaBoutiqueTriggered)
         {
