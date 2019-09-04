@@ -1,0 +1,16 @@
+{
+	"Items": [{
+      "name": "Arc",
+			"type": "Weaponrange",
+			"path": "test",
+			"damage": 3,
+			"range": 20
+		},
+    {
+			"name": "épée",
+			"type": "Weaponcac",
+			"path": "test",
+			"damage": 2,
+			"range": 1
+		}]
+  }

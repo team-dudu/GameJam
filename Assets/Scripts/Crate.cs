@@ -15,7 +15,7 @@ public class Crate : MonoBehaviour
 
     private DialogManager dialogManager;
 
-    public ObjectsRessourceData objectsRessourceData;
+    public ObjectResources objectResources;
 
     private Animator animator;
 
@@ -27,7 +27,19 @@ public class Crate : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         dialogManager = gameObject.GetComponent<DialogManager>();
-        objectsRessourceData = gameObject.GetComponent<IObjectsRessourceData>() as ObjectsRessourceData;
+        string weaponspath = "Assets/Resources/Objects/weapons.json";
+        string consommablepath = "Assets/Resources/Objects/consomables.json";
+        objectResources = new ObjectResources();
+
+        StreamReader reader = new StreamReader(weaponspath);
+        string test = reader.ReadToEnd();
+        objectResources.Weapons = JsonHelper.FromJson<Weapon>(test);
+        reader.Close();
+
+        reader = new StreamReader(consommablepath);
+        objectResources.Consommables = JsonHelper.FromJson<Consommable>(reader.ReadToEnd());
+        reader.Close();
+
     }
 
     // Update is called once per frame
@@ -66,7 +78,7 @@ public class Crate : MonoBehaviour
 
             animator.SetAnimation(AnimationParameter.Open);
 
-            playerController.AddWeaponToInventory(objectsRessourceData.Weapons[0]);
+            playerController.AddWeaponToInventory(objectResources.Weapons[0]);
 
             Dialog dialog = new Dialog
             {
@@ -74,7 +86,7 @@ public class Crate : MonoBehaviour
                 Sentences = new Queue()
             };
 
-            dialog.Sentences.Enqueue("Tu viens de trouver " + objectsRessourceData.Weapons[0].name);
+            dialog.Sentences.Enqueue("Tu viens de trouver " + objectResources.Weapons[0].name);
             DialogManager.Instance.StartDialog(dialog);
         }
     }

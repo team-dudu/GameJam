@@ -1,0 +1,9 @@
+{
+	"consommable": [{
+			"name": "potion",
+			"type": "Consommable",
+			"path": "",
+			"amount": "2",
+			"feature": "Health"
+		}]
+}
