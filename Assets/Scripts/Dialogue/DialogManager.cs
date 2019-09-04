@@ -12,6 +12,8 @@ public class DialogManager : MonoBehaviour
 
     public GameObject DialogWindow;
 
+    private GameObject dialogWindow;
+
     public GameObject canvas;
     public Text nameText;
     public Text dialogueText;
@@ -31,6 +33,11 @@ public class DialogManager : MonoBehaviour
     }
     public Queue<string> sentences;
 
+    public void Start()
+    {
+        dialogWindow = DialogWindow;
+    }
+
 
 
     void Update()
@@ -47,7 +54,8 @@ public class DialogManager : MonoBehaviour
     public void StartDialog(Dialog dialog)
     {
         IsDialoging = true;
-        DialogWindow.SetActive(true);
+
+        dialogWindow.SetActive(true);
 
         if (sentences == null)
         {

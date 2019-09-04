@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6153214027622766492}
   - component: {fileID: 6399597824710021217}
   - component: {fileID: 1506596471}
+  - component: {fileID: 407375601433878420}
   m_Layer: 0
   m_Name: CratePrefab
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 6153214027622766490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.47, y: -12.75, z: -1}
-  m_LocalScale: {x: 7.5, y: 7.5, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openable: 0
   opened: 0
+  dialogTrigger: {fileID: 407375601433878420}
 --- !u!95 &6153214027622766492
 Animator:
   serializedVersion: 3
@@ -261,3 +263,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &407375601433878420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153214027622766490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d0e9a8e4b834d478b7d3f7e789b090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog:
+    Name: 

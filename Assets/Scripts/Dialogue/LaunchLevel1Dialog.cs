@@ -62,8 +62,6 @@ public class LaunchLevel1Dialog : MonoBehaviour
             dialog.Sentences.Enqueue("Tente maintenant de te frayer un chemin dans mon manoir");
             dialogTrigger.TriggerDialog(dialog);
             SceneManager.LoadScene(1);
-
-
         }
     }
 }

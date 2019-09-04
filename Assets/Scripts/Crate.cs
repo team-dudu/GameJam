@@ -11,9 +11,9 @@ public class Crate : MonoBehaviour
 {
     public bool openable = false;
 
-    public bool opened = false;
+    public DialogTrigger DialogTrigger;
 
-    private DialogManager dialogManager;
+    public bool opened = false;
 
     public ObjectResources objectResources;
 
@@ -26,7 +26,6 @@ public class Crate : MonoBehaviour
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        dialogManager = gameObject.GetComponent<DialogManager>();
         string weaponspath = "Assets/Resources/Objects/weapons.json";
         string consommablepath = "Assets/Resources/Objects/consomables.json";
         objectResources = new ObjectResources();
