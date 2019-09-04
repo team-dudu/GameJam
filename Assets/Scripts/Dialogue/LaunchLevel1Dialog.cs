@@ -60,7 +60,11 @@ public class LaunchLevel1Dialog : MonoBehaviour
             dialog.Sentences = new Queue();
             dialog.Sentences.Enqueue("Bienvenue dans mon manoir!");
             dialog.Sentences.Enqueue("Tente maintenant de te frayer un chemin dans mon manoir");
-            dialogTrigger.TriggerDialog(dialog);
+            DialogManager.Instance.StartDialog(dialog);
+        }
+
+        if (ZeraHouseDistance < DialogRange && isZeraHouseTriggered && !DialogManager.Instance.IsDialoging)
+        {
             SceneManager.LoadScene(1);
         }
     }
