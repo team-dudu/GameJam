@@ -8,9 +8,12 @@ namespace GameJam
 {
     public class PlayerController : Character
     {
-		public Transform HealthBar;
+        public IPlayerController _playerControler;
+
+        public Transform HealthBar;
 
         public List<GameObject> weaponPrefabs;
+
         private GameObject weapon;
 
         private int currentWeapon = 0;
@@ -19,11 +22,16 @@ namespace GameJam
 
         private float moveInput;
 
-        // Start is called before the first frame update
+        public PlayerController(IPlayerController playerControler)
+        {
+            _playerControler = playerControler;
+            int i = 0;
+        }
+
         public new void Start()
         {
             base.Start();
-
+            m_FacingRight = false;
             audioSource = GetComponent<AudioSource>();
             if (weaponPrefabs.Count > 0)
                 weapon = Instantiate(weaponPrefabs[currentWeapon], transform);
