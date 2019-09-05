@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -9,11 +10,10 @@ namespace GameJam
     {
 		public Transform HealthBar;
 
-        public GameObject[] weaponPrefabs;
+        public List<GameObject> weaponPrefabs;
         private GameObject weapon;
-        private int currentWeapon = 0;
 
-        public Inventory inventory;
+        private int currentWeapon = 0;
 
         AudioSource audioSource;
 
@@ -25,7 +25,7 @@ namespace GameJam
             base.Start();
 
             audioSource = GetComponent<AudioSource>();
-            if (weaponPrefabs.Length > 0)
+            if (weaponPrefabs.Count > 0)
                 weapon = Instantiate(weaponPrefabs[currentWeapon], transform);
         }
 
@@ -60,10 +60,12 @@ namespace GameJam
             {
                 Destroy(weapon);
                 currentWeapon++;
-                if (currentWeapon >= weaponPrefabs.Length)
+                if (currentWeapon >= weaponPrefabs.Count)
+                {
                     currentWeapon = 0;
-                GameObject prefab = weaponPrefabs[currentWeapon];
-                weapon = Instantiate(prefab, transform);
+                }
+
+                weapon = Instantiate(weaponPrefabs[currentWeapon], transform);
             }
         }
 
@@ -100,17 +102,20 @@ namespace GameJam
 
         public void AddWeaponToInventory(Weapon weapon)
         {
-            if (inventory == null)
+            GameObject weaponObject = new GameObject(weapon.name);
+
+            if (weapon.objectType == ObjectType.Weaponrange)
             {
-                inventory = new Inventory();
+                weaponObject.AddComponent<DistanceAttack>();
+                var res = weaponObject.GetComponent<DistanceAttack>();
+                res.firePoint = transform.GetChild(0);
             }
 
-            inventory.Weapons.Add(weapon);
+            weaponPrefabs.Add(weaponObject);
         }
 
         public void AddConsommableToInventory(Consommable consommable)
         {
-            inventory.Consommables.Add(consommable);
         }
     }
 }

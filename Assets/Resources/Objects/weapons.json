@@ -1,6 +1,6 @@
 {
 	"Items": [{
-      "name": "Arc",
+      "name": "Pistolet",
 			"type": "Weaponrange",
 			"path": "test",
 			"damage": 3,

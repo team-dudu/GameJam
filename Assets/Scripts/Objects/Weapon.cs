@@ -5,15 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Weapon 
+public class Weapon : Object
 {
     public int range;
 
     public int damage;
 
-    public string name;
-
     public string type;
-
-    public string path;
 }

@@ -5,10 +5,15 @@ namespace GameJam
     public class DistanceAttack : MonoBehaviour, IAttack
     {
         public Transform firePoint;
-        public GameObject bulletPrefab;
+        private static GameObject bulletPrefab;
 
         private float _timeBtwAttack;
-        public float startTimeBtwAttack;
+        public float startTimeBtwAttack=0.1f;
+
+        void Start()
+        {
+            bulletPrefab=Resources.Load("Bullet") as GameObject;
+        }
 
         void Update()
         {
@@ -17,6 +22,11 @@ namespace GameJam
 
         public void Shoot(Vector3 direction, LayerMask? whatIsEnemies = null)
         {
+            if(bulletPrefab == null)
+            {
+                bulletPrefab = Instantiate(Resources.Load("Bullet"), transform.position, transform.rotation) as GameObject;
+            }
+
             if (_timeBtwAttack <= 0)
             {
                 direction = direction.normalized;
