@@ -198,6 +198,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 939593684759161692, guid: b64b7419b771f72468c7ca5ea202b945,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 939593683588466183, guid: b64b7419b771f72468c7ca5ea202b945,
         type: 3}
       propertyPath: m_Tiles.Array.size
@@ -16932,11 +16937,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[1].Array.data[2].y
       value: 25.00001
-      objectReference: {fileID: 0}
-    - target: {fileID: 939593684759161692, guid: b64b7419b771f72468c7ca5ea202b945,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b64b7419b771f72468c7ca5ea202b945, type: 3}

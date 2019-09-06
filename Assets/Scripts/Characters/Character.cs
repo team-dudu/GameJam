@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 namespace GameJam
 {
-	public abstract class Character : MonoBehaviour, IDamageable
+	public class Character : MonoBehaviour, IDamageable
     {
 
         public int MaxHealth = 100;

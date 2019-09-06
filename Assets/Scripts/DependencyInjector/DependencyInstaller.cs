@@ -5,12 +5,13 @@ using GameJam;
 
 public class DependencyInstaller : MonoInstaller
 {
+    GameObject player;
     public override void InstallBindings()
     {
         Container.Bind<string>().FromInstance("Hello World!");
         Container.Bind<Greeter>().AsSingle().NonLazy();
-        Container.Bind<Character>().AsTransient().NonLazy();
-        Container.Bind<IPlayerController>().AsSingle().NonLazy();
+        Container.Bind<PlayerController>().FromComponentInNewPrefab(player).AsSingle().NonLazy();
+        //Container.Bind<IPlayerController>().To<PlayerController>().AsSingle().NonLazy();
     }
 }
 

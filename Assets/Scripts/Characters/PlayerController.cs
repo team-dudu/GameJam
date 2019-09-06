@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace GameJam
 {
     public class PlayerController : Character
     {
-        public IPlayerController _playerControler;
+        //public IPlayerController _playerControler;
 
         public Transform HealthBar;
 
@@ -21,17 +22,17 @@ namespace GameJam
         AudioSource audioSource;
 
         private float moveInput;
-
-        public PlayerController(IPlayerController playerControler)
-        {
-            _playerControler = playerControler;
-            int i = 0;
-        }
+        
+        //[Inject]
+        //public void Init(IPlayerController playerControler)
+        //{
+        //    _playerControler = playerControler;
+        //}
+       
 
         public new void Start()
         {
             base.Start();
-            m_FacingRight = false;
             audioSource = GetComponent<AudioSource>();
             if (weaponPrefabs.Count > 0)
                 weapon = Instantiate(weaponPrefabs[currentWeapon], transform);
